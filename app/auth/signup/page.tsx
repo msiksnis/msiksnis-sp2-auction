@@ -140,7 +140,7 @@ export default function SignUpPage() {
           </form>
           <div className="text-sm mt-4 text-center">
             <Link
-              href="/login"
+              href="/auth/login"
               className="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-all duration-200 ease-in-out"
             >
               Already have an account? Sign In
