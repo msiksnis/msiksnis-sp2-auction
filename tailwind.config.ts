@@ -13,6 +13,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        bangers: ["var(--font-bangers)"],
+      },
+      fontSize: {
+        fluid: "clamp(1.75rem, 6vw, 5rem)",
+      },
+      lineHeight: {
+        fluid: "clamp(2rem, 7vw, 5rem)",
+      },
     },
   },
   plugins: [],
