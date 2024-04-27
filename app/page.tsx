@@ -1,17 +1,21 @@
+import FilteringBar from "@/components/FilteringBar";
 import Hero from "@/components/Hero";
+import Listings from "@/components/Listings";
 
-const url = process.env.API_BASE + "/auction/listings";
+const url = process.env.API_ALL_LISTINGS + "?_seller=true&_bids=true";
 
 export default async function Home() {
   const allListings = await fetch(url);
 
-  const allListingsData = await allListings.json();
-
-  console.log("allListingsData", allListingsData);
+  const { data } = await allListings.json();
 
   return (
-    <div className="">
+    <>
       <Hero />
-    </div>
+      <div className="mt-24 xl:mt-52">
+        <FilteringBar />
+      </div>
+      <Listings data={data} />
+    </>
   );
 }

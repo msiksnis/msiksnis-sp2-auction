@@ -54,13 +54,13 @@ export default function Navbar() {
         ) : (
           <>
             <Link
-              href="/auth/login"
+              href="/login"
               className="pl-4 whitespace-nowrap hover:underline underline-offset-2"
             >
               Log in
             </Link>
             <button className="rounded-full bg-slate-950 h-10 px-8 text-white whitespace-nowrap shadow hover:bg-slate-800 transition-all">
-              <Link href="/auth/signup">Sign up</Link>
+              <Link href="/signup">Sign up</Link>
             </button>
           </>
         )}
