@@ -22,7 +22,7 @@ export default function NavLinks() {
       <Link
         href="/ending-soon"
         className={`relative opacity-70 hover:opacity-100 transition-all duration-200 w-full font-medium pb-0.5 ${
-          pathname === "/" ? "opacity-100" : "opacity-70"
+          pathname === "/ending-soon" ? "opacity-100" : "opacity-70"
         }`}
       >
         Ending soon
@@ -33,7 +33,7 @@ export default function NavLinks() {
       <Link
         href="/new"
         className={`relative opacity-70 hover:opacity-100 transition-all duration-200 w-full font-medium pb-0.5 ${
-          pathname === "/" ? "opacity-100" : "opacity-70"
+          pathname === "/new" ? "opacity-100" : "opacity-70"
         }`}
       >
         New
