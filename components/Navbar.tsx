@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-
 import Image from "next/image";
-import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
+import { Search } from "lucide-react";
+
 import MobileMenu from "./MobileMenu";
 import UserButton from "./UserButton";
 import NavLinks from "./NavLinks";
@@ -21,7 +21,7 @@ export default function Navbar() {
   const avatar = userAvatar?.value;
 
   return (
-    <div className="flex justify-between items-center md:py-5 px-6 md:px-10">
+    <div className="flex justify-between items-center md:py-5 px-6 md:px-4 lg:px-10">
       <NavLinks />
       <Link href="/">
         <Image
@@ -39,7 +39,7 @@ export default function Navbar() {
             Search...
           </div>
           <div className="xl:hidden size-9 bg-gray-100 rounded-full border"></div>
-          <MagnifyingGlassIcon className="absolute right-2 xl:right-4 top-2.5 xl:top-3 size-5 opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-300" />
+          <Search className="absolute right-2 xl:right-4 top-2 xl:top-3 size-5 opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-300" />
         </div>
         {isLoggedIn ? (
           <>
@@ -54,7 +54,7 @@ export default function Navbar() {
           <>
             <Link
               href="/login"
-              className="md:pl-4 whitespace-nowrap hover:underline underline-offset-2 text-sm md:text-base text-slate-950 transition-all"
+              className="xl:pl-4 whitespace-nowrap hover:underline underline-offset-2 text-sm md:text-base text-slate-950 transition-all"
             >
               Log in
             </Link>

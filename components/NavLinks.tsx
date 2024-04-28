@@ -9,15 +9,13 @@ export default function NavLinks() {
   return (
     <div className="hidden md:flex space-x-4 lg:space-x-10 whitespace-nowrap lg:text-lg">
       <Link
-        href="/all-listings"
+        href="/"
         className={`relative opacity-70 hover:opacity-100 transition-all duration-200 w-full font-medium pb-0.5 ${
-          pathname === "/" || "all-listings" ? "opacity-100" : "opacity-70"
+          pathname === "/" ? "opacity-100" : "opacity-70"
         }`}
       >
         All listings
-        <div
-          className={`${pathname === "/" || "/all-listings" ? "active-link" : ""}`}
-        />
+        <div className={`${pathname === "/" ? "active-link" : ""}`} />
       </Link>
       <Link
         href="/ending-soon"
@@ -31,12 +29,12 @@ export default function NavLinks() {
         />
       </Link>
       <Link
-        href="/new"
+        href="/new-listings"
         className={`relative opacity-70 hover:opacity-100 transition-all duration-200 w-full font-medium pb-0.5 ${
-          pathname === "/new" ? "opacity-100" : "opacity-70"
+          pathname === "/new-listings" ? "opacity-100" : "opacity-70"
         }`}
       >
-        New
+        New listings
         <div className={`${pathname === "/new" ? "active-link" : ""}`} />
       </Link>
     </div>
