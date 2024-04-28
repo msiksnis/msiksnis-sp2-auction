@@ -1,6 +1,6 @@
 import { Heart } from "lucide-react";
 import { ListingsProps } from "../types/ListingTypes";
-import { getTimeLeft } from "../utils/time-converter";
+import { getTimeLeft } from "../lib/time-converter";
 
 export default function Listings({ data }: ListingsProps) {
   const listingsWithImages = data.filter((listing) => listing.media.length > 0);

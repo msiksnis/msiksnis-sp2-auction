@@ -1,8 +1,10 @@
 "use client";
 
-import registerNewUserAction from "@/app/actions/registerNewUserAction";
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
+
+import registerNewUserAction from "@/app/actions/registerNewUserAction";
+import Input from "@/components/Input";
 
 export default function SignUpPage() {
   const [error, formData] = useFormState(registerNewUserAction, undefined);
@@ -21,14 +23,14 @@ export default function SignUpPage() {
                 Name
               </label>
               <div className="mt-1 md:mt-2">
-                <input
+                <Input
                   id="name"
                   name="name"
                   type="text"
                   required
                   placeholder="Your name"
                   aria-label="Name"
-                  className="w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                  className="invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 />
               </div>
             </div>
@@ -38,7 +40,7 @@ export default function SignUpPage() {
                 Email address
               </label>
               <div className="mt-1 md:mt-2">
-                <input
+                <Input
                   id="email"
                   name="email"
                   type="email"
@@ -46,7 +48,7 @@ export default function SignUpPage() {
                   autoComplete="email"
                   required
                   placeholder="Email address"
-                  className="w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                  className="invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 />
               </div>
             </div>
@@ -58,7 +60,7 @@ export default function SignUpPage() {
                 </label>
               </div>
               <div className="mt-1 md:mt-2 relative">
-                <input
+                <Input
                   id="password"
                   name="password"
                   type="password"
@@ -66,7 +68,6 @@ export default function SignUpPage() {
                   autoComplete="new-password"
                   required
                   placeholder="Password"
-                  className="w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                 />
                 <button
                   type="button"
@@ -94,7 +95,7 @@ export default function SignUpPage() {
               </div>
 
               <div className="mt-1 md:mt-2 relative">
-                <input
+                <Input
                   id="repeatPassword"
                   name="repeatPassword"
                   type="password"
@@ -102,7 +103,6 @@ export default function SignUpPage() {
                   autoComplete="new-password"
                   required
                   placeholder="Repeat password"
-                  className="w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                 />
                 <button
                   type="button"

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 
 import loginAction from "@/app/actions/loginAction";
+import Input from "@/components/Input";
 
 export default function LoginPage() {
   const [error, formAction] = useFormState(loginAction, undefined);
@@ -22,13 +23,13 @@ export default function LoginPage() {
                 Email address
               </label>
               <div className="mt-1 md:mt-2">
-                <input
+                <Input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   placeholder="Email address"
-                  className="w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                  className="invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 />
               </div>
             </div>
@@ -41,14 +42,13 @@ export default function LoginPage() {
               </div>
 
               <div className="mt-1 md:mt-2 relative">
-                <input
+                <Input
                   id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
                   required
                   placeholder="Password"
-                  className="w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                 />
                 <button
                   type="button"
