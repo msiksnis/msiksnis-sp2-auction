@@ -30,7 +30,7 @@ export default function Navbar() {
           priority
           width={150}
           height={100}
-          className="scale-75 md:scale-100 lg:-ml-6 w-auto"
+          className="scale-75 md:scale-100 -ml-6 sm:ml-0 lg:-ml-6 w-auto"
         />
       </Link>
       <div className="flex items-center space-x-4 xl:space-x-10">

@@ -1,17 +1,6 @@
-import validateEmail from "@/helpers/validateEmail";
-import validatePassword from "@/helpers/validatePassword";
-
 export async function POST(request: Request) {
   const body = await request.json();
   const { email, password } = body;
-
-  // Validates data
-  if (!validateEmail(email) || !validatePassword(password)) {
-    return new Response(
-      JSON.stringify({ error: "Invalid email or password" }),
-      { status: 400 }
-    );
-  }
 
   const loginData = {
     email,

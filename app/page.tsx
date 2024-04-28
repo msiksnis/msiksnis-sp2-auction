@@ -2,7 +2,8 @@ import FilteringBar from "@/components/FilteringBar";
 import Hero from "@/components/Hero";
 import Listings from "@/components/Listings";
 
-const url = process.env.API_ALL_LISTINGS + "?_seller=true&_bids=true";
+const url =
+  process.env.API_ALL_LISTINGS + "?_seller=true&_bids=true&_active=true";
 
 export default async function Home() {
   const allListings = await fetch(url);
