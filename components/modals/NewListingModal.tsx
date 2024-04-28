@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Input from "../Input";
+import { Button } from "../Button";
 
 type NewListingModalProps = {
   closeModal: () => void;
@@ -48,13 +49,15 @@ export default function NewListingModal({ closeModal }: NewListingModalProps) {
           <div className="border border-slate-900 rounded-lg p-4 shadow-lg flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="flex items-start justify-between">
               <div className="text-xl">New Listing</div>
-              <button
+              <Button
                 onClick={closeModal}
-                className="rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none"
+                variant="ghost"
+                size="icon"
+                rounded="full"
               >
-                <X size={20} />
+                <X className="size-5" />
                 <span className="sr-only">Close</span>
-              </button>
+              </Button>
             </div>
 
             <form className="my-10">
@@ -67,19 +70,11 @@ export default function NewListingModal({ closeModal }: NewListingModalProps) {
                 className="invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               />
             </form>
-            <div className="flex items-center justify-end">
-              <button
-                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                type="button"
-              >
+            <div className="flex items-center justify-end space-x-2">
+              <Button variant="secondary" size="full" onClick={closeModal}>
                 Close
-              </button>
-              <button
-                className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                type="button"
-              >
-                Submit
-              </button>
+              </Button>
+              <Button size="full">Submit</Button>
             </div>
           </div>
         </div>

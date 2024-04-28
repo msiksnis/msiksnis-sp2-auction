@@ -9,7 +9,7 @@ import LogoutButton from "./LogoutButton";
 import NewListingModal from "./modals/NewListingModal";
 
 export default function UserButton({ name, avatar }: UserProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
