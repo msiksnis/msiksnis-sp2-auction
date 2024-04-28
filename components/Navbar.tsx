@@ -30,17 +30,16 @@ export default function Navbar() {
           priority
           width={150}
           height={100}
-          className="scale-75 md:scale-100 -ml-6 w-auto"
+          className="scale-75 md:scale-100 lg:-ml-6 w-auto"
         />
       </Link>
-      <div className="flex items-center space-x-10">
-        <div className="hidden md:block relative">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-gray-100 h-10 px-4 rounded-full placeholder:text-sm placeholder:font-light"
-          />
-          <MagnifyingGlassIcon className="absolute right-4 top-3 size-5 opacity-60" />
+      <div className="flex items-center space-x-4 xl:space-x-10">
+        <div className="hidden md:block relative cursor-pointer group">
+          <div className="hidden xl:flex items-center w-36 text-sm text-gray-500 bg-gray-100 h-10 px-4 rounded-full placeholder:text-sm placeholder:font-light">
+            Search...
+          </div>
+          <div className="xl:hidden size-9 bg-gray-100 rounded-full border"></div>
+          <MagnifyingGlassIcon className="absolute right-2 xl:right-4 top-2.5 xl:top-3 size-5 opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-300" />
         </div>
         {isLoggedIn ? (
           <>
@@ -55,11 +54,11 @@ export default function Navbar() {
           <>
             <Link
               href="/login"
-              className="pl-4 whitespace-nowrap hover:underline underline-offset-2"
+              className="md:pl-4 whitespace-nowrap hover:underline underline-offset-2 text-sm md:text-base text-slate-950 transition-all"
             >
               Log in
             </Link>
-            <button className="rounded-full bg-slate-950 h-10 px-8 text-white whitespace-nowrap shadow hover:bg-slate-800 transition-all">
+            <button className="rounded-full bg-slate-950 py-1 px-2 md:h-9 md:px-4 lg:px-6 xl:px-8 text-sm md:text-base text-white whitespace-nowrap shadow hover:bg-slate-800 transition-all">
               <Link href="/signup">Sign up</Link>
             </button>
           </>

@@ -17,10 +17,10 @@ const config: Config = {
         bangers: ["var(--font-bangers)"],
       },
       fontSize: {
-        fluid: "clamp(1.75rem, 6vw, 5rem)",
+        fluid: "clamp(1.5rem, 6vw, 5rem)",
       },
       lineHeight: {
-        fluid: "clamp(2rem, 7vw, 5rem)",
+        fluid: "clamp(1.5rem, 7vw, 5rem)",
       },
     },
   },

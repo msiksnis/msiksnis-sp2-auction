@@ -7,16 +7,16 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <div className="hidden md:flex space-x-10 whitespace-nowrap text-lg">
+    <div className="hidden md:flex space-x-4 lg:space-x-10 whitespace-nowrap lg:text-lg">
       <Link
         href="/all-listings"
         className={`relative opacity-70 hover:opacity-100 transition-all duration-200 w-full font-medium pb-0.5 ${
-          pathname === "/" ? "opacity-100" : "opacity-70"
+          pathname === "/" || "all-listings" ? "opacity-100" : "opacity-70"
         }`}
       >
         All listings
         <div
-          className={`${pathname === "/all-listings" ? "active-link" : ""}`}
+          className={`${pathname === "/" || "/all-listings" ? "active-link" : ""}`}
         />
       </Link>
       <Link
