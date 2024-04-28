@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 import UserButton from "./UserButton";
 import NavLinks from "./NavLinks";
+import { Button } from "./Button";
 
 export type UserProps = {
   name?: string;
@@ -58,9 +59,9 @@ export default function Navbar() {
             >
               Log in
             </Link>
-            <button className="rounded-full bg-slate-950 py-1 px-2 md:h-9 md:px-4 lg:px-6 xl:px-8 text-sm md:text-base text-white whitespace-nowrap shadow hover:bg-slate-800 transition-all">
+            <Button rounded="full">
               <Link href="/signup">Sign up</Link>
-            </button>
+            </Button>
           </>
         )}
       </div>

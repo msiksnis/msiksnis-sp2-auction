@@ -46,17 +46,18 @@ const buttonVariants = cva(
 
 type ButtonProps = VariantProps<typeof buttonVariants> & {
   className?: string;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   children: React.ReactNode;
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, rounded, ...props }) => {
+  ({ className, variant, size, rounded, ...props }, ref) => {
     return (
       <button
         className={cn(buttonVariants({ variant, size, rounded, className }))}
+        ref={ref}
         {...props}
       />
     );

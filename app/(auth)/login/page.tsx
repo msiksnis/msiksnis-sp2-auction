@@ -6,9 +6,16 @@ import { useFormState } from "react-dom";
 import loginAction from "@/app/actions/loginAction";
 import Input from "@/components/Input";
 import { Button } from "@/components/Button";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const [error, formAction] = useFormState(loginAction, undefined);
+
+  const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
 
   return (
     <>
@@ -31,16 +38,17 @@ export default function LoginPage() {
               <Input
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 required
                 placeholder="Password"
               />
               <Button
                 variant="link"
-                className="absolute top-7 right-0 p-3 flex items-center text-xs leading-5"
+                onClick={toggleShowPassword}
+                className="absolute top-7 right-0 p-3 flex items-center text-xs leading-5 focus-visible:outline -outline-offset-4 outline-black"
               >
-                Show
+                {showPassword ? "Hide" : "Show"}
               </Button>
             </div>
 
@@ -49,7 +57,7 @@ export default function LoginPage() {
                 <input
                   name="remember-me"
                   type="checkbox"
-                  className="w-4 h-4 accent-black border-black rounded-full focus:ring-black cursor-pointer"
+                  className="size-4 outline-black accent-black cursor-pointer"
                 />
                 <label htmlFor="remember-me" className="cursor-pointer">
                   Remember me

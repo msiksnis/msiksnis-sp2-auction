@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   if (!validateEmail(email) || !validatePassword(password)) {
     return Response.json(
       {
-        error: "Invalid email or password",
+        error: "Invalid email or password is not strong enough.",
       },
       { status: 400 }
     );

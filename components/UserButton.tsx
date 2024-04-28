@@ -60,7 +60,7 @@ export default function UserButton({ name, avatar }: UserProps) {
             }
           >
             <div className="whitespace-nowrap font-medium">
-              <div className="text-cente py-2">{name}</div>
+              <div className="text-cente py-2 max-w-32 truncate">{name}</div>
               <div className="flex flex-col space-y-1 border-t border-slate-800">
                 <Link href="/profile" className="mt-2 link py-1">
                   Profile

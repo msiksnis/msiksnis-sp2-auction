@@ -62,7 +62,6 @@ export default function NewListingModal({ closeModal }: NewListingModalProps) {
             </div>
 
             <form className="my-10">
-              <label className="text-sm">Email</label>
               <Input
                 type="email"
                 name="email"
