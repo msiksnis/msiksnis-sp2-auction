@@ -15,36 +15,12 @@ export default function UserButton({ name, avatar }: UserProps) {
 
   const toggleMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !(menuRef.current as HTMLElement).contains(event.target as Node)
-      ) {
-        setIsUserMenuOpen(false);
-      }
-    };
-
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsUserMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscapeKey);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, []);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <>
-      {isModalOpen && <NewListingModal closeModal={toggleModal} />}
+      {isModalOpen && <NewListingModal closeModal={closeModal} />}
       <div ref={menuRef} onClick={toggleMenu} className="relative">
         <img
           src={avatar}
@@ -75,7 +51,7 @@ export default function UserButton({ name, avatar }: UserProps) {
                   My Active Bids
                 </Link>
                 <button
-                  onClick={toggleModal}
+                  onClick={openModal}
                   className="flex items-center link py-1"
                 >
                   <Plus className="size-5 pr-1" /> New Listing
@@ -91,3 +67,30 @@ export default function UserButton({ name, avatar }: UserProps) {
     </>
   );
 }
+
+// const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+// useEffect(() => {
+//   const handleClickOutside = (event: MouseEvent) => {
+//     if (
+//       menuRef.current &&
+//       !(menuRef.current as HTMLElement).contains(event.target as Node)
+//     ) {
+//       setIsUserMenuOpen(false);
+//     }
+//   };
+
+//   const handleEscapeKey = (event: KeyboardEvent) => {
+//     if (event.key === "Escape") {
+//       setIsUserMenuOpen(false);
+//     }
+//   };
+
+//   document.addEventListener("mousedown", handleClickOutside);
+//   document.addEventListener("keydown", handleEscapeKey);
+
+//   return () => {
+//     document.removeEventListener("mousedown", handleClickOutside);
+//     document.removeEventListener("keydown", handleEscapeKey);
+//   };
+// }, []);
