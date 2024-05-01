@@ -1,5 +1,13 @@
 export const filteringOptions = [
   {
+    label: "All",
+    value: "all",
+  },
+  {
+    label: "Home",
+    value: "home",
+  },
+  {
     label: "Art",
     value: "art",
   },

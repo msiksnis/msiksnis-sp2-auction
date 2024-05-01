@@ -6,7 +6,7 @@ import { filteringOptions } from "../lib/filtering-options";
 export default function FilteringBar() {
   return (
     <>
-      <div className="h-10 flex items-center overflow-x-scroll no-scrollbar space-x-4 md:space-x-10 px-6 md:px-10 md:justify-around">
+      <div className="h-10 flex items-center overflow-x-scroll no-scrollbar space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-10 px-6 md:px-10 md:justify-around">
         {filteringOptions.map((option) => (
           <div key={option.value}>
             <Link

@@ -68,13 +68,13 @@ export default function ListingForm({
         />
         <DayPickerComponent date={date} setDate={setDate} />
         <div className="pt-1">
-          <label htmlFor="Description" className="text-sm font-medium">
-            Description
-          </label>
-          <textarea
-            placeholder="Description"
+          <Input
+            textarea
             rows={2}
-            className="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-slate-900 focus:ring-opacity-50 focus:outline-none"
+            value={description}
+            name="description"
+            placeholder="Description"
+            aria-label="Description"
           />
         </div>
         <Input type="text" name="tags" placeholder="Tags" aria-label="Tags" />
