@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Bangers } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
@@ -24,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.className} ${bangers.variable}`}>
+        <Toaster position="top-center" reverseOrder={false} />
         <Navbar />
         {children}
       </body>

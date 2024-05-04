@@ -1,4 +1,5 @@
 import { Heart } from "lucide-react";
+
 import { ListingsProps } from "../types/ListingTypes";
 import { getTimeLeft } from "../lib/time-converter";
 

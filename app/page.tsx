@@ -10,13 +10,18 @@ export default async function Home() {
 
   const { data } = await allListings.json();
 
+  const sortedData = data.sort(
+    (a: any, b: any) =>
+      new Date(b.created).getTime() - new Date(a.created).getTime()
+  );
+
   return (
     <>
       <Hero />
       <div className="mt-28 sm:mt-36 md:mt-44 xl:mt-52">
         <FilteringBar />
       </div>
-      <Listings data={data} />
+      <Listings data={sortedData} />
     </>
   );
 }

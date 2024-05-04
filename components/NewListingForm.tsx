@@ -1,63 +1,97 @@
 "use client";
 
 import { useState } from "react";
+import { MinusCircle, PlusCircle } from "lucide-react";
+import { useFormState, useFormStatus } from "react-dom";
+import * as z from "zod";
+import { redirect } from "next/navigation";
 
+import DayPickerComponent from "./DatePicker";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input";
-import DayPickerComponent from "./DatePicker";
-import { formatISO } from "date-fns";
-import { MinusCircle, PlusCircle } from "lucide-react";
+import newListingAction from "@/app/actions/newListingAction";
+import toast from "react-hot-toast";
+import { revalidatePath } from "next/cache";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  if (pending) {
+    return (
+      <Button size="full" type="submit" disabled>
+        Creating...
+      </Button>
+    );
+  }
+
+  return (
+    <Button size="full" type="submit">
+      Create
+    </Button>
+  );
+}
 
 type ListingFormProps = {
-  onSubmit: (data: {
-    title: string;
-    description: string;
-    tags: string[];
-    media: Array<{ url: string; alt: string }>;
-    date: string;
-  }) => void;
   closeModal: () => void;
 };
 
-export default function ListingForm({
-  onSubmit,
-  closeModal,
-}: ListingFormProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+const initialState = {
+  title: "",
+  description: "",
+  endsAt: "",
+  tags: [],
+  media: [],
+};
+
+const newListingSchema = z.object({
+  title: z.string().min(1, {
+    message: "Title is required",
+  }),
+  description: z.string().optional(),
+  endsAt: z.string(),
+  tags: z.array(z.string()).optional(),
+  media: z.array(
+    z.object({
+      url: z.string(),
+      alt: z.string(),
+    })
+  ),
+});
+
+export default function ListingForm({ closeModal }: ListingFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [tags, setTags] = useState([""]);
-  const [media, setMedia] = useState([{ url: "" }]);
+  const [images, setImages] = useState([{ url: "", alt: "" }]);
 
-  const utcDate = new Date(
-    (date ?? new Date()).getTime() -
-      (date ?? new Date()).getTimezoneOffset() * 60000
-  );
-  const formattedDate = utcDate.toISOString();
+  const [state, formAction] = useFormState(newListingAction, initialState);
 
-  console.log("Selected date", formattedDate);
+  console.log("State:", state);
 
-  const handleMediaChange = (index: number, value: string) => {
-    const newMedia = [...media];
-    newMedia[index].url = value;
-    setMedia(newMedia);
+  const handleImagesChange = (index: number, value: string) => {
+    const newImages = [...images];
+    newImages[index].url = value;
+    setImages(newImages);
   };
 
-  const addMedia = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const addImages = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (media.length < 8) {
-      setMedia([...media, { url: "" }]);
+    if (images.length < 8) {
+      setImages([...images, { url: "", alt: "" }]);
     } else {
       alert("You cannot add more than 8 images.");
     }
   };
 
-  const removeMedia = (index: number) => {
-    setMedia(media.filter((_, i) => i !== index));
+  const removeImages = (index: number) => {
+    setImages(images.filter((_, i) => i !== index));
   };
 
+  if (state.success) {
+    toast.success(state.message || "Listing created successfully.");
+    closeModal();
+    redirect("/");
+  }
+
   return (
-    <form className="p-4">
+    <form className="p-4" action={formAction}>
       <div className="mt-2 mb-10 space-y-4">
         <Input
           type="text"
@@ -71,39 +105,38 @@ export default function ListingForm({
           <Input
             textarea
             rows={2}
-            value={description}
             name="description"
             placeholder="Description"
             aria-label="Description"
           />
         </div>
         <Input type="text" name="tags" placeholder="Tags" aria-label="Tags" />
-        {media.map((item, index) => (
+        {images.map((imageUrl, index) => (
           <div key={index} className="relative space-y-2">
             <Input
-              value={item.url}
-              onChange={(e) => handleMediaChange(index, e.target.value)}
+              value={imageUrl.url}
+              onChange={(e) => handleImagesChange(index, e.target.value)}
               type="text"
-              name={`mediaUrl-${index}`}
+              name="images"
               placeholder="Image URL"
               aria-label="Image URL"
             />
             {index > 0 && (
-              <div className=" absolute top-[1.8rem] right-2 bg-white cursor-pointer">
+              <div className=" absolute top-[1.8rem] right-2  bg-white pl-2 cursor-pointer">
                 <MinusCircle
-                  onClick={() => removeMedia(index)}
+                  onClick={() => removeImages(index)}
                   className="size-5 opacity-70 hover:opacity-100 transition-all duration-200"
                 />
               </div>
             )}
           </div>
         ))}
-        {media.length < 8 && (
+        {images.length < 8 && (
           <Button
             variant="outline"
             size="sm"
             className="text-sm"
-            onClick={addMedia}
+            onClick={addImages}
           >
             <PlusCircle className="size-[1.125rem] mr-2" />
             Add another
@@ -114,7 +147,7 @@ export default function ListingForm({
         <Button variant="secondary" size="full" onClick={closeModal}>
           Cancel
         </Button>
-        <Button size="full">Create</Button>
+        <SubmitButton />
       </div>
     </form>
   );

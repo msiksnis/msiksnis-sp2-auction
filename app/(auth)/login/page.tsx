@@ -1,12 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 
 import loginAction from "@/app/actions/loginAction";
 import Input from "@/components/Input";
 import { Button } from "@/components/Button";
-import { useState } from "react";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);

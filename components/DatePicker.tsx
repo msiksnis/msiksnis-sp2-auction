@@ -24,20 +24,20 @@ export default function DayPickerComponent({
     callback: () => setShowDatePicker(false),
   });
 
+  const handleDayClick = (day: Date) => {
+    const [hours, minutes] = time.split(":").map(Number);
+    day.setHours(hours, minutes);
+    setDate(new Date(day));
+  };
+
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = e.target.value;
     const [hours, minutes] = newTime.split(":").map(Number);
     if (date) {
-      const updatedDate = new Date(date.setHours(hours, minutes));
-      setDate(new Date(updatedDate));
+      date.setHours(hours, minutes);
+      setDate(new Date(date));
     }
     setTime(newTime);
-  };
-
-  const handleDayClick = (day: Date) => {
-    const [hours, minutes] = time.split(":").map(Number);
-    const newDate = new Date(day.setHours(hours, minutes));
-    setDate(new Date(newDate));
   };
 
   const css = `
