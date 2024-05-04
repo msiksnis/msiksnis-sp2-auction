@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { filteringOptions } from "../lib/filtering-options";
+import { Button } from "./Button";
 
 export default function FilteringBar() {
   return (
@@ -9,14 +9,11 @@ export default function FilteringBar() {
       <div className="h-10 flex items-center overflow-x-scroll no-scrollbar space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-10 px-6 md:px-10 md:justify-around">
         {filteringOptions.map((option) => (
           <div key={option.value}>
-            <Link
-              href={option.value}
-              className="flex text-lg rounded-full px-5 py-1 bg-slate-100 hover:bg-slate-200 transition-all duration-200 group"
-            >
+            <Button variant="secondary" rounded="full">
               <div className="opacity-70 group-hover:opacity-100 transition-all duration-200">
                 {option.label}
               </div>
-            </Link>
+            </Button>
           </div>
         ))}
       </div>

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
-import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
 import { Button } from "../Button";
