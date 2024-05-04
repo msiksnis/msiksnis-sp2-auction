@@ -10,6 +10,7 @@ import ListingForm from "../NewListingForm";
 
 type NewListingModalProps = {
   closeModal: () => void;
+  onSubmit: () => void;
 };
 
 export default function NewListingModal({ closeModal }: NewListingModalProps) {

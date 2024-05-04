@@ -11,7 +11,6 @@ import { Button } from "@/components/Button";
 import Input from "@/components/Input";
 import newListingAction from "@/app/actions/newListingAction";
 import toast from "react-hot-toast";
-import { revalidatePath } from "next/cache";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -32,6 +31,7 @@ function SubmitButton() {
 
 type ListingFormProps = {
   closeModal: () => void;
+  onSubmit: () => void;
 };
 
 const initialState = {
