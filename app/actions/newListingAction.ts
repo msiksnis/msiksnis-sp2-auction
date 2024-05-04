@@ -56,8 +56,6 @@ export default async function newListingAction(
     accessToken,
   });
 
-  //   console.log("Action: Creating new listing:", body);
-
   const res = await fetch(process.env.ROOT_URL + "/api/newListing", {
     method: "POST",
     headers: {

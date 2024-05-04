@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
@@ -67,30 +67,3 @@ export default function UserButton({ name, avatar }: UserProps) {
     </>
   );
 }
-
-// const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-// useEffect(() => {
-//   const handleClickOutside = (event: MouseEvent) => {
-//     if (
-//       menuRef.current &&
-//       !(menuRef.current as HTMLElement).contains(event.target as Node)
-//     ) {
-//       setIsUserMenuOpen(false);
-//     }
-//   };
-
-//   const handleEscapeKey = (event: KeyboardEvent) => {
-//     if (event.key === "Escape") {
-//       setIsUserMenuOpen(false);
-//     }
-//   };
-
-//   document.addEventListener("mousedown", handleClickOutside);
-//   document.addEventListener("keydown", handleEscapeKey);
-
-//   return () => {
-//     document.removeEventListener("mousedown", handleClickOutside);
-//     document.removeEventListener("keydown", handleEscapeKey);
-//   };
-// }, []);
