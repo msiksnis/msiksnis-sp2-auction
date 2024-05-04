@@ -1,10 +1,8 @@
-"use client";
-
 import { Heart } from "lucide-react";
 import Link from "next/link";
 
 import { ListingsProps } from "../types/ListingTypes";
-import useTimeLeft from "@/hooks/useTimeLeft";
+import { getTimeLeft } from "@/lib/time-converter";
 
 export default function Listings({ data }: ListingsProps) {
   const listingsWithImages = data.filter((listing) => listing.media.length > 0);
@@ -32,7 +30,7 @@ export default function Listings({ data }: ListingsProps) {
             <div className="absolute flex justify-center items-center top-2 right-2 rounded-full text-sm bg-white border p-1 cursor-pointer group">
               <Heart className="size-5 text-slate-800 transition-all group-hover:text-red-500" />
             </div>
-            <p className="text-sm">{useTimeLeft(endsAt)}</p>
+            <p className="text-sm">{getTimeLeft(endsAt)}</p>
           </div>
         </Link>
       ))}
