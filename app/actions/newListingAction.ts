@@ -23,7 +23,7 @@ export default async function newListingAction(
   prevState: any,
   formData: FormData
 ): Promise<any> {
-  const valitedData = newListingSchema.safeParse({
+  const validatedData = newListingSchema.safeParse({
     title: formData.get("title"),
     description: formData.get("description"),
     endsAt: formData.get("date"),
@@ -47,12 +47,12 @@ export default async function newListingAction(
     return { error: "No access token provided." };
   }
 
-  if (!valitedData.success) {
-    return { error: valitedData.error };
+  if (!validatedData.success) {
+    return { error: validatedData.error };
   }
 
   const body = JSON.stringify({
-    ...valitedData.data,
+    ...validatedData.data,
     accessToken,
   });
 
@@ -61,7 +61,7 @@ export default async function newListingAction(
     headers: {
       "Content-Type": "application/json",
     },
-    body: body,
+    body,
   });
 
   const data = await res.json();
