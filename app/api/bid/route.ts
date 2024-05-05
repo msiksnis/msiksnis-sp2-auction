@@ -29,40 +29,16 @@ export async function POST(request: Request) {
       }
     );
 
-    console.log(
-      "!!!!!! JSON.stringify({ amount }): ",
-      JSON.stringify({ amount })
-    );
+    // const apiResponseBody = await apiResponse.text();
 
-    const apiResponseBody = await apiResponse.text(); // Capture full response body
-    console.log("API response:", apiResponseBody); // Log it
-
-    //     if (!apiResponse.ok) {
-    //       console.log("Response Status:", apiResponse.status);
-    //       const errorData = await apiResponse.text(); // Change this to text to see non-JSON responses
-    //       console.error("Error placing bid:", errorData);
-    //       throw new Error(errorData || "Failed to place a bid.");
-    //     }
-
-    //     const data = await apiResponse.json();
-
-    //     console.log("Route: New bid placed:", data);
-
-    //     return NextResponse.json(data, { status: 200 });
-    //   } catch (error) {
-    //     console.log(["PLACING_BID"], error);
-    //     return new NextResponse("Internal error", { status: 500 });
-    //   }
+    // if (!apiResponse.ok) {
+    //   console.error("Error placing bid:", apiResponseBody);
+    //   return new NextResponse(apiResponseBody, { status: apiResponse.status });
     // }
-
-    if (!apiResponse.ok) {
-      console.error("Error placing bid:", apiResponseBody);
-      return new NextResponse(apiResponseBody, { status: apiResponse.status });
-    }
 
     revalidatePath("/listing");
 
-    return NextResponse.json(JSON.parse(apiResponseBody), { status: 200 });
+    return NextResponse.json({ message: "Bid placed successfully." });
   } catch (error) {
     console.error("Server error:", error);
     return new NextResponse("Internal server error", { status: 500 });
