@@ -154,7 +154,7 @@ export default function SingleListing({
                 id="amountInput"
                 value={currentBidInput}
               />
-              <div className="flex space-x-4">
+              {/* <div className="flex space-x-4">
                 <input
                   type="button"
                   name="amount"
@@ -179,7 +179,7 @@ export default function SingleListing({
                   placeholder={`${enterBid} or more credits`}
                   className="flex justify-center w-full rounded-md border border-black h-8 px-3 shadow-sm text-xs font-medium text-center focus:outline-none cursor-pointer hover:bg-slate-100"
                 />
-              </div>
+              </div> */}
               <div className="my-4 space-y-4">
                 <input
                   type="number"

@@ -40,9 +40,9 @@ export default async function bidAction(
 
   const res = await fetch(process.env.ROOT_URL + `/api/bid/`, {
     method: "POST",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body,
   });
 
