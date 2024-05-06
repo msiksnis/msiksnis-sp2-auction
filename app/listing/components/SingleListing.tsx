@@ -38,7 +38,15 @@ const bidSchema = z.object({
   }),
 });
 
-export default function SingleListing({ data }: { data: Listing }) {
+interface SingleListingProps {
+  data: Listing;
+  isLoggedIn: boolean;
+}
+
+export default function SingleListing({
+  data,
+  isLoggedIn,
+}: SingleListingProps) {
   const [showAllImages, setShowAllImages] = useState(false);
   const [currentBidInput, setCurrentBidInput] = useState(
     data.bids && data.bids.length > 0 ? data.bids[0].amount + 1 : 0
