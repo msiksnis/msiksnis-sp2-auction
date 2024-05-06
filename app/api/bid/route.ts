@@ -29,12 +29,12 @@ export async function POST(request: Request) {
       }
     );
 
-    // const apiResponseBody = await apiResponse.text();
+    const apiResponseBody = await apiResponse.text();
 
-    // if (!apiResponse.ok) {
-    //   console.error("Error placing bid:", apiResponseBody);
-    //   return new NextResponse(apiResponseBody, { status: apiResponse.status });
-    // }
+    if (!apiResponse.ok) {
+      console.error("Error placing bid:", apiResponseBody);
+      return new NextResponse(apiResponseBody, { status: apiResponse.status });
+    }
 
     revalidatePath("/listing");
 
