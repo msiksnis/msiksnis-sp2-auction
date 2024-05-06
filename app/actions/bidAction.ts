@@ -38,7 +38,7 @@ export default async function bidAction(
 
   console.log("From Action: Sending to server:", body);
 
-  const res = await fetch(process.env.ROOT_URL + `/api/bid/`, {
+  const res = await fetch(process.env.ROOT_URL + `/api/[bid]`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
