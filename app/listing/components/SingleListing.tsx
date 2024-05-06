@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import * as z from "zod";
+import toast from "react-hot-toast";
 
 import { Button } from "@/components/Button";
 import { Listing } from "@/types/ListingTypes";
 import useTimeLeft from "@/hooks/useTimeLeft";
 import bidAction from "@/app/actions/bidAction";
-import toast from "react-hot-toast";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -92,8 +92,6 @@ export default function SingleListing({
       toast.error(state.error);
     }
   }, [state.success, state.error, state.message]);
-
-  console.log("Current form state:", state);
 
   return (
     <div className="grid grid-cols-5 md:gap-x-10 xl:gap-x-20">

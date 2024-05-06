@@ -18,8 +18,6 @@ export default async function bidAction(
     id: formData.get("listingId"),
   });
 
-  console.log("FromAction: Validated data:", validatedData);
-
   const token = cookies().get("accessToken");
   const accessToken = token?.value;
 
@@ -36,8 +34,6 @@ export default async function bidAction(
     accessToken,
   });
 
-  console.log("From Action: Sending to server:", body);
-
   const res = await fetch(process.env.ROOT_URL + `/api/[bid]`, {
     method: "POST",
     headers: {
@@ -45,13 +41,6 @@ export default async function bidAction(
     },
     body,
   });
-
-  if (!res.ok) {
-    // Assuming the server might send non-JSON responses that could be plain text:
-    const errorText = await res.text();
-    console.error("Failed to place a bid:", errorText);
-    return { error: errorText };
-  }
 
   const data = await res.json();
   revalidatePath("/listing");
