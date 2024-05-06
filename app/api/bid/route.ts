@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       }
     );
 
-    const apiResponseBody = await apiResponse.text();
+    const apiResponseBody = await apiResponse.json();
 
     if (!apiResponse.ok) {
       console.error("Error placing bid:", apiResponseBody);

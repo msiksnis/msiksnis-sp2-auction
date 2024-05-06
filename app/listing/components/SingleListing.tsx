@@ -145,51 +145,57 @@ export default function SingleListing({
               {bidAmount} {singularPluralCredit}
             </div>
           </div>
-          <form id="bidForm" className="my-10" action={formAction}>
-            <input type="hidden" name="listingId" value={data.id} />
-            <input
-              type="hidden"
-              name="amount"
-              id="amountInput"
-              value={currentBidInput}
-            />
-            <div className="flex space-x-4">
+          {isLoggedIn ? (
+            <form id="bidForm" className="my-10" action={formAction}>
+              <input type="hidden" name="listingId" value={data.id} />
               <input
-                type="button"
+                type="hidden"
                 name="amount"
-                value={`${fixedOne} ${singularPluralFixedCredit}`}
-                onClick={() => handleBid(fixedOne)}
-                placeholder={`${enterBid} ${singularPluralFixedCredit}`}
-                className="flex justify-center w-full rounded-md border border-black h-8 px-3 shadow-sm text-xs font-medium text-center focus:outline-none cursor-pointer hover:bg-slate-100"
+                id="amountInput"
+                value={currentBidInput}
               />
-              <input
-                type="button"
-                name="amount"
-                value={`${fixedFive} ${singularPluralCredit}`}
-                onClick={() => handleBid(fixedFive)}
-                placeholder={`${enterBid} or more credits`}
-                className="flex justify-center w-full rounded-md border border-black h-8 px-3 shadow-sm text-xs font-medium text-center focus:outline-none cursor-pointer hover:bg-slate-100"
-              />
-              <input
-                type="button"
-                name="amount"
-                value={`${fixedTwenty} ${singularPluralCredit}`}
-                onClick={() => handleBid(fixedTwenty)}
-                placeholder={`${enterBid} or more credits`}
-                className="flex justify-center w-full rounded-md border border-black h-8 px-3 shadow-sm text-xs font-medium text-center focus:outline-none cursor-pointer hover:bg-slate-100"
-              />
+              <div className="flex space-x-4">
+                <input
+                  type="button"
+                  name="amount"
+                  value={`${fixedOne} ${singularPluralFixedCredit}`}
+                  onClick={() => handleBid(fixedOne)}
+                  placeholder={`${enterBid} ${singularPluralFixedCredit}`}
+                  className="flex justify-center w-full rounded-md border border-black h-8 px-3 shadow-sm text-xs font-medium text-center focus:outline-none cursor-pointer hover:bg-slate-100"
+                />
+                <input
+                  type="button"
+                  name="amount"
+                  value={`${fixedFive} ${singularPluralCredit}`}
+                  onClick={() => handleBid(fixedFive)}
+                  placeholder={`${enterBid} or more credits`}
+                  className="flex justify-center w-full rounded-md border border-black h-8 px-3 shadow-sm text-xs font-medium text-center focus:outline-none cursor-pointer hover:bg-slate-100"
+                />
+                <input
+                  type="button"
+                  name="amount"
+                  value={`${fixedTwenty} ${singularPluralCredit}`}
+                  onClick={() => handleBid(fixedTwenty)}
+                  placeholder={`${enterBid} or more credits`}
+                  className="flex justify-center w-full rounded-md border border-black h-8 px-3 shadow-sm text-xs font-medium text-center focus:outline-none cursor-pointer hover:bg-slate-100"
+                />
+              </div>
+              <div className="my-4 space-y-4">
+                <input
+                  type="number"
+                  name="amount"
+                  onChange={(e) => setCurrentBidInput(Number(e.target.value))}
+                  placeholder={`${enterBid} or more credits`}
+                  className="w-full rounded-md border-0 mt-1 py-1.5 px-4 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-500 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
+                />
+                <SubmitButton />
+              </div>
+            </form>
+          ) : (
+            <div className="text-center text-lg mt-10">
+              Please log in to place a bid
             </div>
-            <div className="my-4 space-y-4">
-              <input
-                type="number"
-                name="amount"
-                onChange={(e) => setCurrentBidInput(Number(e.target.value))}
-                placeholder={`${enterBid} or more credits`}
-                className="w-full rounded-md border-0 mt-1 py-1.5 px-4 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-500 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
-              />
-              <SubmitButton />
-            </div>
-          </form>
+          )}
         </div>
       </div>
     </div>
