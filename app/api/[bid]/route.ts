@@ -1,4 +1,3 @@
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -23,15 +22,6 @@ export async function POST(request: Request) {
       }),
       body: JSON.stringify({ amount }),
     });
-
-    // const apiResponseBody = await apiResponse.json();
-
-    // if (!apiResponse.ok) {
-    //   console.error("Error placing bid:", apiResponseBody);
-    //   return new NextResponse(apiResponseBody, { status: apiResponse.status });
-    // }
-
-    revalidatePath("/listing");
 
     return NextResponse.json({ message: "Bid placed successfully." });
   } catch (error) {
