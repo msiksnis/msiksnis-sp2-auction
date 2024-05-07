@@ -40,7 +40,7 @@ export default function UserButton({ name, avatar }: UserProps) {
             <div className="whitespace-nowrap font-medium bg-white rounded-md p-2">
               <div className="text-cente py-2 max-w-32 truncate">{name}</div>
               <div className="flex flex-col space-y-1 border-t border-slate-800">
-                <Link href="/profile" className="mt-2 link py-1">
+                <Link href={`/profile/${name}`} className="mt-2 link py-1">
                   Profile
                 </Link>
                 <Link href="/my-listings" className="link py-1">

@@ -1,7 +1,7 @@
-export default function MyWinningsPage() {
+export default function Page() {
   return (
     <>
-      <div className="">my winnings</div>
+      <div className="">My Winnings</div>
     </>
   );
 }

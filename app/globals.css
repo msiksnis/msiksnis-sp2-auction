@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#FDFDFD] max-w-[1550px] mx-auto selection:bg-black selection:text-white text-slate-900;
+  @apply bg-bg max-w-[1550px] mx-auto selection:bg-black selection:text-white text-slate-900;
 }
 
 @layer components {

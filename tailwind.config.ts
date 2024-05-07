@@ -22,6 +22,9 @@ const config: Config = {
       lineHeight: {
         fluid: "clamp(1.5rem, 7vw, 5rem)",
       },
+      colors: {
+        bg: "#FDFDFD",
+      },
     },
   },
   plugins: [],
