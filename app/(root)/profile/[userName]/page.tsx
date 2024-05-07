@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import UserData from "../components/UserData";
+import { redirect } from "next/navigation";
 
 export default function ProfilePage({
   params,
@@ -10,6 +11,10 @@ export default function ProfilePage({
   const userName = cookies().get("userName");
 
   const name = userName?.value;
+
+  if (!isLoggedIn) {
+    redirect("/login");
+  }
 
   if (name !== params.userName) {
     return (
