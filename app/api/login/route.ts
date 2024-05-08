@@ -29,15 +29,9 @@ export async function POST(request: Request) {
       });
     }
 
-    const data = await apiResponse.json();
+    const { data } = await apiResponse.json();
 
-    return NextResponse.json({ user: data });
-    // return new Response(JSON.stringify({ user: data }), {
-    //   status: 200,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    return NextResponse.json(data);
   } catch (error) {
     console.error("[LOGIN_POST]", error);
     return new NextResponse("Internal Server Error", { status: 500 });

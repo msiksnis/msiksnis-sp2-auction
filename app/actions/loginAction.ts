@@ -2,24 +2,42 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import * as z from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
 
 export default async function loginAction(
   currentState: any,
   formData: FormData
 ): Promise<any> {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const validatedData = loginSchema.safeParse({
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  });
+
+  if (!validatedData.success) {
+    return { message: "Invalid email or password." };
+  }
+
+  const body = JSON.stringify({
+    ...validatedData.data,
+  });
 
   const res = await fetch(process.env.ROOT_URL + "/api/login", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body,
   });
 
   const data = await res.json();
 
+  console.log(data);
+
   if (res.ok) {
-    const { accessToken, name } = data.user.data;
-    const avatarUrl = data.user.data.avatar.url;
+    const { accessToken, name } = data;
+    const avatarUrl = data.avatar.url;
 
     const cookieOptions = {
       secure: process.env.NODE_ENV === "production",
@@ -36,8 +54,11 @@ export default async function loginAction(
       httpOnly: false,
     });
 
-    redirect("/");
+    // redirect("/");
+    if (data) {
+      return { success: true, message: "Login successful!" };
+    }
   } else {
-    return data.error;
+    return { message: "Failed to log in. Please try again." };
   }
 }

@@ -1,21 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
+import { redirect } from "next/navigation";
 
 import loginAction from "@/app/actions/loginAction";
 import Input from "@/components/Input";
 import { Button } from "@/components/Button";
 
+const initialState = {
+  email: "",
+  password: "",
+  message: "",
+  state: {
+    success: false,
+    error: false,
+  },
+};
+
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [error, formAction] = useFormState(loginAction, undefined);
+  const [state, formAction] = useFormState(loginAction, initialState);
+
+  console.log("This is the state:", state);
 
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
+
+  if (state.success) {
+    redirect("/");
+  }
 
   return (
     <>
@@ -67,7 +84,9 @@ export default function LoginPage() {
             </div>
 
             <Button size="full">Sign In</Button>
-            {error && <p className="text-red-500 py-1">{error}</p>}
+            {state.error && (
+              <p className="text-red-500 py-1">{state.message}</p>
+            )}
           </form>
           <div className="text-sm mt-4 text-center">
             <Link
