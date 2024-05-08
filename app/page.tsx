@@ -21,10 +21,10 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <div className="mt-28 sm:mt-36 md:mt-44 xl:mt-52">
+      {/* <div className="mt-28 sm:mt-36 md:mt-44 xl:mt-52">
         <FilteringBar />
-      </div>
-      <Listings data={sortedData} />
+      </div> */}
+      {/* <Listings data={sortedData} /> */}
     </>
   );
 }
