@@ -1,7 +1,7 @@
 import FilteringBar from "@/components/FilteringBar";
 import Hero from "@/components/Hero";
 import Listings from "@/components/Listings";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 
 const url =
   process.env.API_ALL_LISTINGS + "?_seller=true&_bids=true&_active=true";
@@ -16,7 +16,7 @@ export default async function Home() {
       new Date(b.created).getTime() - new Date(a.created).getTime()
   );
 
-  revalidatePath("/");
+  // revalidatePath("/");
 
   return (
     <>
