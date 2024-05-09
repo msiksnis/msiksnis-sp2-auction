@@ -36,8 +36,9 @@ function SubmitButton() {
 }
 
 interface UserAvatarProps {
-  userName: string;
-  avatar: string;
+  avatar: {
+    url: string;
+  };
 }
 
 const initialState = {
@@ -48,8 +49,10 @@ const initialState = {
   },
 };
 
-export default function UserAvatar({ userName, avatar }: UserAvatarProps) {
+export default function UserAvatar({ userName }: { userName: string }) {
+  const [user, setUser] = useState<UserAvatarProps | null>(null);
   const [changeAvatar, setChangeAvatar] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [state, formAction] = useFormState(editUserAvatarAction, initialState);
 
@@ -58,11 +61,27 @@ export default function UserAvatar({ userName, avatar }: UserAvatarProps) {
   };
 
   useEffect(() => {
+    const fetchUserByName = async () => {
+      const res = await fetch(`/api/profile/${userName}`);
+      if (!res.ok) {
+        throw new Error("User not found!");
+      }
+      const userData = await res.json();
+      setUser(userData);
+      setLoading(false);
+    };
+
+    fetchUserByName();
+  }, [userName, state.success]);
+
+  useEffect(() => {
     if (state.success) {
       toast.success(state.message);
       changeAvatar && setChangeAvatar(false);
     }
   }, [state.success]);
+
+  if (loading) return <div className="pt-10">Loading...</div>;
 
   return (
     <>
@@ -72,7 +91,7 @@ export default function UserAvatar({ userName, avatar }: UserAvatarProps) {
             <input type="hidden" name="name" value={userName} />
             <div className="flex items-end">
               <img
-                src={avatar}
+                src={user?.avatar.url}
                 alt="avatar"
                 className="size-24 md:size-36 rounded-full ring ring-black ring-offset-1 mb-4"
               />
@@ -92,7 +111,7 @@ export default function UserAvatar({ userName, avatar }: UserAvatarProps) {
                 <Button
                   variant="ghost"
                   onClick={toggleChangeAvatar}
-                  className="px-0 h-4 ml-6 mb-4 text-blue-700 hover:bg-bg"
+                  className="px-0 h-4 ml-6 text-blue-700 hover:bg-bg"
                 >
                   Change
                 </Button>

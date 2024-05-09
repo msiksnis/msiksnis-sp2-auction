@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import UserData from "../components/UserDataServer";
+import UserData from "../components/UserData";
 
 export default function ProfilePage({
   params,
