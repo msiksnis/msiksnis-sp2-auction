@@ -7,10 +7,10 @@ export default async function MyListingsPage({
 }: {
   params: { userName: string };
 }) {
-  const isLogged = cookies().get("accessToken") ? true : false;
+  const isLoggedIn = cookies().get("accessToken") ? true : false;
   const accessToken = cookies().get("accessToken")?.value;
 
-  if (!isLogged) {
+  if (!isLoggedIn) {
     redirect("/login");
   }
 
@@ -23,8 +23,6 @@ export default async function MyListingsPage({
       "Content-Type": "application/json",
     },
   }).then((res) => res.json());
-
-  // console.log(usersListing);
 
   return (
     <>

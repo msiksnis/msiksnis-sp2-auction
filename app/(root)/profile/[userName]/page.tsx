@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import UserData from "../components/UserData";
+import UserData from "../components/UserDataServer";
 
 export default function ProfilePage({
   params,
@@ -31,7 +31,7 @@ export default function ProfilePage({
         Hello {params.userName}
       </h1>
       <div className="border-t mt-2 md:mt-4">
-        <UserData userName={params.userName} isLoggedIn={isLoggedIn} />
+        <UserData params={params} />
       </div>
     </div>
   );
