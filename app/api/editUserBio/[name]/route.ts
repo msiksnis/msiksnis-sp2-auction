@@ -1,10 +1,9 @@
-import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { userName, bio, avatarUrl, accessToken } = body;
+    const { userName, bio, accessToken } = body;
 
     if (!accessToken || accessToken === undefined) {
       throw new Error("No access token provided.");
@@ -23,9 +22,10 @@ export async function PUT(request: NextRequest) {
       }),
       body: JSON.stringify({
         bio,
-        avatarUrl,
       }),
     });
+
+    console.log("THIS IS THE BODY FROM BIO ROUTE:", body);
 
     return NextResponse.json({ message: "Profile updated successfully." });
   } catch (error) {

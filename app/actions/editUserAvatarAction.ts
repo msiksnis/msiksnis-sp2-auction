@@ -5,25 +5,23 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 const editUserSchema = z.object({
-  bio: z.string().optional(),
-  avatarUrl: z
+  avatar: z
     .object({
       url: z.string(),
-      alt: z.string(),
+      alt: z.string().optional(),
     })
     .optional(),
   userName: z.string(),
 });
 
-export default async function editUserAction(
+export default async function editUserAvatarAction(
   prevState: any,
   formData: FormData
 ): Promise<any> {
   const validatedData = editUserSchema.safeParse({
-    bio: formData.get("bio"),
-    avatarUrl: {
+    avatar: {
       url: formData.get("avatarUrl") || "",
-      alt: formData.get("avatarAlt") || "User avatar",
+      alt: formData.get("avatarAlt") || "",
     },
     userName: formData.get("name"),
   });
@@ -44,7 +42,9 @@ export default async function editUserAction(
     accessToken,
   });
 
-  const res = await fetch(process.env.ROOT_URL + `/api/editUser/[name]`, {
+  console.log("THIS IS THE BODY FROM AVATAR ACTION:", body);
+
+  const res = await fetch(process.env.ROOT_URL + `/api/editUserAvatar/[name]`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
