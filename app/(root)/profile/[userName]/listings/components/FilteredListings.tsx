@@ -1,8 +1,8 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { getTimeLeft } from "@/lib/time-converter";
 import { Listing } from "@/types/ListingTypes";
@@ -20,14 +20,23 @@ interface FilteredDataProps {
 
 export default function FilteredListings({ data }: FilteredDataProps) {
   const [filteredData, setFilteredData] = useState(data);
-  const [filter, setFilter] = useState("all");
   const [selectedLabel, setSelectedLabel] = useState("All");
 
-  const router = useRouter();
   const params = useParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const filterParam = searchParams.get("filter");
+
+  console.log("filterParam", filterParam);
+
+  const handleFilterChange = (filter: string, label: string): void => {
+    setSelectedLabel(label);
+    router.push(`/profile/${params.userName}/listings?filter=${filter}`);
+  };
 
   useEffect(() => {
-    switch (filter) {
+    switch (filterParam) {
       case "all":
         setFilteredData(data);
         break;
@@ -49,13 +58,7 @@ export default function FilteredListings({ data }: FilteredDataProps) {
       default:
         setFilteredData(data);
     }
-  }, [filter, data]);
-
-  const handleFilterChange = (filter: string, label: string): void => {
-    setFilter(filter);
-    setSelectedLabel(label);
-    router.push(`/profile/${params.userName}/listings?filter=${filter}`);
-  };
+  }, [filterParam, data]);
 
   return (
     <div>
@@ -67,8 +70,6 @@ export default function FilteredListings({ data }: FilteredDataProps) {
             key={option.value}
             value={option.value}
             onClick={() => {
-              setFilter(option.value);
-              setSelectedLabel(option.label);
               handleFilterChange(option.value, option.label);
             }}
           >
