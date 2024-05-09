@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
-import UserData from "../components/UserData";
 import { redirect } from "next/navigation";
+
+import UserData from "../components/UserData";
 
 export default function ProfilePage({
   params,
@@ -18,7 +19,7 @@ export default function ProfilePage({
 
   if (name !== params.userName) {
     return (
-      <div className="flex w-full px-6 text-center mt-44 md:mt-60 justify-center items-center">
+      <div className="flex px-6 text-center mt-44 md:mt-60 justify-center items-center">
         This is not your profile. You can view and edit only your own profile.
       </div>
     );

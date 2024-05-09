@@ -74,8 +74,6 @@ export default function UserAvatar({ userName }: { userName: string }) {
     fetchUserByName();
   }, [userName, state.success]);
 
-  console.log("THIS IS THESTATE:", state.success);
-
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);

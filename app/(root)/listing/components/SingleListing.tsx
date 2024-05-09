@@ -32,12 +32,6 @@ const inititialState = {
   message: null,
 };
 
-const bidSchema = z.object({
-  amount: z.number().int().positive().min(1, {
-    message: "Amount is required",
-  }),
-});
-
 interface SingleListingProps {
   data: Listing;
   isLoggedIn: boolean;
@@ -85,7 +79,6 @@ export default function SingleListing({
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);
-      // Reset the form
     }
 
     if (state.error) {
@@ -152,7 +145,7 @@ export default function SingleListing({
                 id="amountInput"
                 value={currentBidInput}
               />
-              <div className="flex space-x-4">
+              <div className="flex flex-col lg:flex-row space-y-4 lg:space-x-4 lg:space-y-0">
                 <input
                   type="button"
                   name="amount"
