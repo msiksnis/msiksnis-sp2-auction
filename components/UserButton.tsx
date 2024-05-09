@@ -32,8 +32,8 @@ export default function UserButton({ name, avatar }: UserProps) {
         <div
           className={
             isUserMenuOpen
-              ? "translate-x-0 transition-all duration-200 absolute top-14 right-0 overflow-hidden border border-slate-800 rounded-md shadow z-20 bg-bg"
-              : "translate-x-96 transition-all duration-200 absolute top-14 right-0 overflow-hidden border border-slate-800 rounded-md shadow z-20 bg-bg"
+              ? "transition-all duration-200 absolute top-14 right-0 overflow-hidden border border-slate-800 rounded-md shadow z-20 bg-bg"
+              : "hidden transition-all duration-200 absolute top-14 right-0 overflow-hidden border border-slate-800 rounded-md shadow z-20 bg-bg"
           }
         >
           <div className="whitespace-nowrap font-medium rounded-md py-2 px-4">

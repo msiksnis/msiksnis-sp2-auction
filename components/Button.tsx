@@ -48,6 +48,7 @@ type ButtonProps = VariantProps<typeof buttonVariants> & {
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
+  value?: string | number;
   disabled?: boolean;
   children: React.ReactNode;
 };

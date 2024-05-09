@@ -1,6 +1,8 @@
-import Listings from "@/components/Listings";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import FilteredListings from "./components/FilteredListings";
+import { Listing } from "@/types/ListingTypes";
 
 export default async function MyListingsPage({
   params,
@@ -14,7 +16,7 @@ export default async function MyListingsPage({
     redirect("/login");
   }
 
-  const url = process.env.API_PROFILES + `/${params!.userName}/listings?`;
+  const url = `${process.env.API_PROFILES}/${params!.userName}/listings?_active`;
   const usersListing = await fetch(url, {
     method: "GET",
     headers: {
@@ -24,9 +26,18 @@ export default async function MyListingsPage({
     },
   }).then((res) => res.json());
 
+  const { data } = usersListing;
+
+  const listingsWithImages: Listing[] = data.filter(
+    (data: Listing) => data.media.length > 0
+  );
+
   return (
-    <>
-      <Listings data={usersListing.data} />
-    </>
+    <div className="mt-14 mb-40 px-6 md:px-10">
+      <div className="">
+        <h1 className="text-2xl">Listings by {params.userName}</h1>
+      </div>
+      <FilteredListings data={listingsWithImages} />
+    </div>
   );
 }

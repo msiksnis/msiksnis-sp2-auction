@@ -65,42 +65,40 @@ export default function UserAvatar({ userName, avatar }: UserAvatarProps) {
   }, [state.success]);
 
   return (
-    <>
-      <div className="">
-        <div className="border-b pb-4">
-          <form action={formAction}>
-            <input type="hidden" name="name" value={userName} />
-            <div className="flex items-end">
-              <img
-                src={avatar}
-                alt="avatar"
-                className="size-24 md:size-36 rounded-full ring ring-black ring-offset-1 mb-4"
-              />
-              {changeAvatar && (
-                <div className="ml-6 flex-grow">
-                  <input
-                    type="text"
-                    name="avatarUrl"
-                    placeholder="Enter new avatar URL"
-                    className="bg-bg border-b border-slate-700 placeholder:text-sm w-full rounded-none focus:outline-none"
-                  />
-                  <input type="hidden" name="avatarAlt" value="Users Avatar" />
-                  <SubmitButton />
-                </div>
-              )}
-              {!changeAvatar && (
-                <Button
-                  variant="ghost"
-                  onClick={toggleChangeAvatar}
-                  className="px-0 h-4 ml-6 mb-4 text-blue-700 hover:bg-bg"
-                >
-                  Change
-                </Button>
-              )}
-            </div>
-          </form>
-        </div>
+    <div className="">
+      <div className="border-b pb-4">
+        <form action={formAction}>
+          <input type="hidden" name="name" value={userName} />
+          <div className="flex items-end">
+            <img
+              src={avatar}
+              alt="avatar"
+              className="size-24 md:size-36 rounded-full ring ring-black ring-offset-1 mb-4"
+            />
+            {changeAvatar && (
+              <div className="ml-6 flex-grow">
+                <input
+                  type="text"
+                  name="avatarUrl"
+                  placeholder="Enter new avatar URL"
+                  className="bg-bg border-b border-slate-700 placeholder:text-sm w-full rounded-none focus:outline-none"
+                />
+                <input type="hidden" name="avatarAlt" value="Users Avatar" />
+                <SubmitButton />
+              </div>
+            )}
+            {!changeAvatar && (
+              <Button
+                variant="ghost"
+                onClick={toggleChangeAvatar}
+                className="px-0 h-4 ml-6 mb-4 text-blue-700 hover:bg-bg"
+              >
+                Change
+              </Button>
+            )}
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
