@@ -1,7 +1,6 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import * as z from "zod";
 
 const loginSchema = z.object({
@@ -54,7 +53,6 @@ export default async function loginAction(
       httpOnly: false,
     });
 
-    // redirect("/");
     if (data) {
       return { success: true, message: "Login successful!" };
     }

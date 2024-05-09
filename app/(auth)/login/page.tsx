@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import { redirect } from "next/navigation";
@@ -22,8 +22,6 @@ const initialState = {
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [state, formAction] = useFormState(loginAction, initialState);
-
-  console.log("This is the state:", state);
 
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
