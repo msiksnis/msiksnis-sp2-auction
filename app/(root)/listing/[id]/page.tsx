@@ -9,6 +9,7 @@ export default async function SingleListingPage({
   params: { id: string };
 }) {
   const isLoggedIn: any = cookies().get("accessToken");
+  const userName: any = cookies().get("userName")?.value;
 
   const { id } = params;
   const url = process.env.API_ALL_LISTINGS + `/${id}?_bids=true&_seller=true`;
@@ -18,7 +19,7 @@ export default async function SingleListingPage({
 
   return (
     <div className="px-4 md:px-10 pt-16 pb-80">
-      <SingleListing data={data} isLoggedIn={isLoggedIn} />
+      <SingleListing data={data} isLoggedIn={isLoggedIn} userName={userName} />
       <MoreFromSameId />
     </div>
   );

@@ -3,8 +3,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { title, description, endsAt, tags, media, accessToken } = body;
 
-    console.log("Route: Creating new listing:", body);
-
     if (!accessToken || accessToken === undefined) {
       throw new Error("No access token provided.");
     }
@@ -29,8 +27,6 @@ export async function POST(request: Request) {
 
     const data = await apiResponse.json();
 
-    console.log("Route: New listing created:", data);
-
     return new Response(JSON.stringify({ data }), {
       status: 200,
       headers: {
@@ -45,12 +41,7 @@ export async function POST(request: Request) {
         error: error.message || "Server Error",
         status: "error",
       }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      { status: 500 }
     );
   }
 }

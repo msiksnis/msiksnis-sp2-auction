@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { MinusCircle, PlusCircle } from "lucide-react";
+import { use, useEffect, useState } from "react";
+import { LoaderCircle, MinusCircle, PlusCircle } from "lucide-react";
 import { useFormState, useFormStatus } from "react-dom";
 import * as z from "zod";
 import { redirect } from "next/navigation";
@@ -17,6 +17,7 @@ function SubmitButton() {
   if (pending) {
     return (
       <Button size="full" type="submit" disabled>
+        <LoaderCircle className="size-4 mr-2 animate-spin" />
         Creating...
       </Button>
     );
@@ -48,8 +49,6 @@ export default function ListingForm({ closeModal }: ListingFormProps) {
 
   const [state, formAction] = useFormState(newListingAction, initialState);
 
-  console.log("State:", state);
-
   const handleImagesChange = (index: number, value: string) => {
     const newImages = [...images];
     newImages[index].url = value;
@@ -69,11 +68,13 @@ export default function ListingForm({ closeModal }: ListingFormProps) {
     setImages(images.filter((_, i) => i !== index));
   };
 
-  if (state.success) {
-    toast.success(state.message || "Listing created successfully.");
-    closeModal();
-    redirect("/");
-  }
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message || "Listing created successfully.");
+      closeModal();
+      redirect("/");
+    }
+  }, [state.success]);
 
   return (
     <form className="p-4" action={formAction}>

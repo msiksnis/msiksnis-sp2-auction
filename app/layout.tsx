@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.className} ${bangers.variable}`}>
-        <Toaster position="bottom-left" reverseOrder={false} />
+        <Toaster position="top-center" reverseOrder={false} />
         <Navbar />
         {children}
       </body>
