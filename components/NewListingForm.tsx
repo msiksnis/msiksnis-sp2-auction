@@ -72,7 +72,6 @@ export default function ListingForm({ closeModal }: ListingFormProps) {
     if (state.success) {
       toast.success(state.message || "Listing created successfully.");
       closeModal();
-      redirect("/");
     }
   }, [state.success]);
 
