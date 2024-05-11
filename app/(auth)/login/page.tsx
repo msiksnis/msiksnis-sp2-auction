@@ -1,13 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { redirect } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 import loginAction from "@/app/actions/loginAction";
 import Input from "@/components/Input";
 import { Button } from "@/components/Button";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  if (pending) {
+    return (
+      <Button size="full" type="submit" disabled>
+        <LoaderCircle className="size-4 mr-2 animate-spin" />
+        Signing in...
+      </Button>
+    );
+  }
+
+  return (
+    <Button size="full" type="submit">
+      Sign in
+    </Button>
+  );
+}
 
 const initialState = {
   email: "",
@@ -21,16 +41,23 @@ const initialState = {
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+
   const [state, formAction] = useFormState(loginAction, initialState);
+
+  useEffect(() => {
+    if (state.success) {
+      redirect("/");
+    }
+
+    if (state.error) {
+      toast.error(state.message);
+    }
+  }, [state.success, state.error, state.message]);
 
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
-
-  if (state.success) {
-    redirect("/");
-  }
 
   return (
     <>
@@ -59,6 +86,7 @@ export default function LoginPage() {
                 placeholder="Password"
               />
               <Button
+                type="button"
                 variant="link"
                 onClick={toggleShowPassword}
                 className="absolute top-7 right-0 p-3 flex items-center text-xs leading-5 focus-visible:outline -outline-offset-4 outline-black"
@@ -81,10 +109,7 @@ export default function LoginPage() {
               <div className="cursor-pointer">Forgot password?</div>
             </div>
 
-            <Button size="full">Sign In</Button>
-            {state.error && (
-              <p className="text-red-500 py-1">{state.message}</p>
-            )}
+            <SubmitButton />
           </form>
           <div className="text-sm mt-4 text-center">
             <Link

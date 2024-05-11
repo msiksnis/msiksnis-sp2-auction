@@ -1,67 +1,68 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
+import { LoaderCircle } from "lucide-react";
 
 import registerNewUserAction from "@/app/actions/registerNewUserAction";
 import Input from "@/components/Input";
 import { Button } from "@/components/Button";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  if (pending) {
+    return (
+      <Button size="full" type="submit" disabled>
+        <LoaderCircle className="size-4 mr-2 animate-spin" />
+        Registering in...
+      </Button>
+    );
+  }
+
+  return (
+    <Button size="full" type="submit">
+      Sign up
+    </Button>
+  );
+}
+
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  repeatPassword: "",
+  state: {
+    success: false,
+    error: false,
+    message: null,
+  },
+};
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
-  const [passwordsMatch, setPasswordsMatch] = useState(false);
-  const [passwordsDoNotMatchError, setPasswordsDoNotMatchError] = useState("");
-  const [error, formData] = useFormState(registerNewUserAction, undefined);
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const [state, formAction] = useFormState(registerNewUserAction, initialState);
+
+  useEffect(() => {
+    if (state.success) {
+      redirect("/login");
+    }
+
+    if (state.error) {
+      toast.error(state.message);
+    }
+  }, [state.success, state.error]);
+
+  console.log("error:", state.error);
+  console.log("success:", state.success);
+  console.log("message:", state.meassage);
 
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
-  };
-
-  const toggleShowRepeatPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setShowRepeatPassword(!showRepeatPassword);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    const passwordsMatchNow = newPassword === repeatPassword;
-    setPasswordsMatch(passwordsMatchNow);
-    if (passwordsMatchNow) {
-      setPasswordsDoNotMatchError("");
-    }
-  };
-
-  const handleRepeatPasswordChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newRepeatPassword = e.target.value;
-    setRepeatPassword(newRepeatPassword);
-    const passwordsMatchNow = newRepeatPassword === password;
-    setPasswordsMatch(passwordsMatchNow);
-    if (passwordsMatchNow) {
-      setPasswordsDoNotMatchError("");
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (password !== repeatPassword) {
-      setPasswordsDoNotMatchError("Passwords do not match.");
-      return;
-    }
-
-    // To proceed with form submission if validation passes
-    if (formRef.current !== null) {
-      formRef.current.submit();
-    }
   };
 
   return (
@@ -71,12 +72,7 @@ export default function SignUpPage() {
           Sign up for a new account
         </h1>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            className="space-y-4 md:space-y-6"
-            ref={formRef}
-            action={formData}
-            onSubmit={handleSubmit}
-          >
+          <form className="space-y-4 md:space-y-6" action={formAction}>
             <Input
               id="name"
               name="name"
@@ -106,10 +102,9 @@ export default function SignUpPage() {
                 autoComplete="new-password"
                 required
                 placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
               />
               <Button
+                type="button"
                 variant="link"
                 aria-label="Show password"
                 onClick={toggleShowPassword}
@@ -119,43 +114,8 @@ export default function SignUpPage() {
               </Button>
             </div>
 
-            <div className="relative">
-              <Input
-                id="repeatPassword"
-                name="repeatPassword"
-                type={showRepeatPassword ? "text" : "password"}
-                aria-label="Repeat password"
-                autoComplete="new-password"
-                required
-                placeholder="Repeat password"
-                value={repeatPassword}
-                onChange={handleRepeatPasswordChange}
-              />
-              <Button
-                variant="link"
-                aria-label="Show password"
-                onClick={toggleShowRepeatPassword}
-                className="absolute top-7 right-0 px-3 flex items-center text-xs leading-5 focus-visible:outline -outline-offset-4 outline-black"
-              >
-                {showRepeatPassword ? "Hide" : "Show"}
-              </Button>
-              {passwordsMatch && (
-                <span className="absolute left-32 top-0.5">
-                  <img
-                    src="/assets/icons/check-mark.svg"
-                    alt="Check mark"
-                    className="size-5"
-                  />
-                </span>
-              )}
-            </div>
-
-            <Button size="full">Sign Up</Button>
-            {(error || passwordsDoNotMatchError) && (
-              <p className="text-red-500">
-                {error || passwordsDoNotMatchError}
-              </p>
-            )}
+            <SubmitButton />
+            {state.error && <p className="text-red-500">{state.message}</p>}
           </form>
           <div className="text-sm mt-4 text-center">
             <Link

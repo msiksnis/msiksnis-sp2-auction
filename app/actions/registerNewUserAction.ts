@@ -1,14 +1,29 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import * as z from "zod";
+
+const registerSchema = z.object({
+  name: z.string().min(3),
+  email: z.string().email(),
+  password: z.string().min(8),
+});
 
 export default async function registerNewUserAction(
   currentState: any,
   formData: FormData
-): Promise<string> {
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+): Promise<any> {
+  const validatedData = registerSchema.safeParse({
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  });
+
+  if (!validatedData.success) {
+    return { error: "Invalid email or password." };
+  }
+
+  const { name, email, password } = validatedData.data;
 
   const res = await fetch(process.env.ROOT_URL + "/api/signup", {
     method: "POST",

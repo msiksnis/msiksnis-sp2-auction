@@ -25,8 +25,6 @@ export async function PUT(request: NextRequest) {
       }),
     });
 
-    console.log("THIS IS THE BODY FROM ROUTE:", body);
-
     return NextResponse.json({ message: "Profile updated successfully." });
   } catch (error) {
     console.error("Server error:", error);

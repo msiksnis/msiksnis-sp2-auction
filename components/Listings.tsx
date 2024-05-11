@@ -20,7 +20,7 @@ export default function Listings({ data }: ListingsProps) {
   const [selectedFilter, setSelectedFilter] = useState(filterParam);
   const [activeButton, setActiveButton] = useState(filterParam);
 
-  // Handles the filter change and updates the URL with the new filter
+  // This it s to handle the filter change and update the filtered data
   const handleFilterChange = (filter: string) => {
     setSelectedFilter(filter);
     router.push(filter === "All" ? `?` : `?filter=${filter}`, {
@@ -34,6 +34,7 @@ export default function Listings({ data }: ListingsProps) {
     setActiveButton(filter);
   };
 
+  // This useEffect is to filter the data based on the filterParam
   useEffect(() => {
     if (filterParam === "all" || filterParam === "All") {
       setFilteredData(data);
@@ -45,6 +46,7 @@ export default function Listings({ data }: ListingsProps) {
     }
   }, [filterParam, data]);
 
+  // For setting the active button based on the filterParam
   useEffect(() => {
     setActiveButton(
       filterParam === "all" || !filterParam ? "All" : filterParam

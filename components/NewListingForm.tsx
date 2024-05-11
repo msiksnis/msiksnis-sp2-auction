@@ -42,21 +42,6 @@ const initialState = {
   media: [],
 };
 
-const newListingSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title is required",
-  }),
-  description: z.string().optional(),
-  endsAt: z.string(),
-  tags: z.array(z.string()).optional(),
-  media: z.array(
-    z.object({
-      url: z.string(),
-      alt: z.string(),
-    })
-  ),
-});
-
 export default function ListingForm({ closeModal }: ListingFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [images, setImages] = useState([{ url: "", alt: "" }]);

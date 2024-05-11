@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 import editUserBioAction from "@/app/actions/editUserBioAction";
 import { Button } from "@/components/Button";
+import { LoaderCircle } from "lucide-react";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -18,6 +19,7 @@ function SubmitButton() {
         type="submit"
         disabled
       >
+        <LoaderCircle className="size-4 mr-2 animate-spin" />
         Saving...
       </Button>
     );

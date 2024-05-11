@@ -42,8 +42,6 @@ export default async function editUserAvatarAction(
     accessToken,
   });
 
-  console.log("THIS IS THE BODY FROM AVATAR ACTION:", body);
-
   const res = await fetch(process.env.ROOT_URL + `/api/editUserAvatar/[name]`, {
     method: "PUT",
     headers: {
@@ -52,12 +50,28 @@ export default async function editUserAvatarAction(
     body,
   });
 
+  if (!res.ok) {
+    const errorData = await res.json();
+    return { error: "Failed to update avatar: " + errorData.message };
+  }
+  console.log("d a t a:", validatedData.data.avatar?.url);
+
   const data = await res.json();
+
+  const url = validatedData.data.avatar?.url ?? "";
+
+  cookies().set("userAvatar", url, {
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: false,
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+    path: "/",
+    sameSite: "strict",
+  });
 
   revalidatePath("/profile/");
 
   if (data) {
-    return { success: true, message: "Successbully updated!" };
+    return { success: true, message: "Successfully updated!" };
   } else {
     return { error: "Failed to update." };
   }

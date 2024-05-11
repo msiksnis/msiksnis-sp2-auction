@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import * as z from "zod";
 
@@ -32,8 +33,6 @@ export default async function loginAction(
 
   const data = await res.json();
 
-  console.log(data);
-
   if (res.ok) {
     const { accessToken, name } = data;
     const avatarUrl = data.avatar.url;
@@ -56,7 +55,9 @@ export default async function loginAction(
     if (data) {
       return { success: true, message: "Login successful!" };
     }
+
+    revalidatePath("/");
   } else {
-    return { message: "Failed to log in. Please try again." };
+    return { error: true, message: "Failed to log in. Please try again." };
   }
 }
