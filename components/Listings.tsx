@@ -18,6 +18,7 @@ export default function Listings({ data }: ListingsProps) {
   const [filteredData, setFilteredData] = useState(data);
   const filterParam = searchParams.get("filter") || "all";
   const [selectedFilter, setSelectedFilter] = useState(filterParam);
+  const [activeButton, setActiveButton] = useState(filterParam);
 
   // Handles the filter change and updates the URL with the new filter
   const handleFilterChange = (filter: string) => {
@@ -30,6 +31,7 @@ export default function Listings({ data }: ListingsProps) {
     } else {
       setFilteredData(data.filter((item) => item.tags.includes(filter)));
     }
+    setActiveButton(filter);
   };
 
   useEffect(() => {
@@ -43,6 +45,12 @@ export default function Listings({ data }: ListingsProps) {
     }
   }, [filterParam, data]);
 
+  useEffect(() => {
+    setActiveButton(
+      filterParam === "all" || !filterParam ? "All" : filterParam
+    );
+  }, [filterParam]);
+
   return (
     <>
       <div className="h-10 flex items-center overflow-x-scroll no-scrollbar space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-10 px-6 md:px-10">
@@ -55,7 +63,7 @@ export default function Listings({ data }: ListingsProps) {
             onClick={() => {
               handleFilterChange(option || "");
             }}
-            className={`capitalize ${filterParam === option || (option === "All" && (!filterParam || filterParam === "all")) ? "border border-slate-800" : ""}`}
+            className={`capitalize ${activeButton === option ? "border border-slate-800" : ""}`}
           >
             {option}
           </Button>
