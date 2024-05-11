@@ -3,48 +3,68 @@
 import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { ListingsProps } from "../types/ListingTypes";
 import { getTimeLeft } from "@/lib/time-converter";
-import { filteringOptions } from "@/lib/filtering-options";
 import { Button } from "./Button";
+import useTopTags from "@/hooks/useTopTags";
 
 export default function Listings({ data }: ListingsProps) {
-  const [filteredData, setFilteredData] = useState(data);
-  const [filter, setFilter] = useState("all");
-  const [selectedLabel, setSelectedLabel] = useState("All");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const topTags = ["All", ...useTopTags(data)];
 
-  useEffect(() => {
-    if (filter === "all") {
+  const [filteredData, setFilteredData] = useState(data);
+  const filterParam = searchParams.get("filter") || "all";
+  const [selectedFilter, setSelectedFilter] = useState(filterParam);
+
+  // Handles the filter change and updates the URL with the new filter
+  const handleFilterChange = (filter: string) => {
+    setSelectedFilter(filter);
+    router.push(filter === "All" ? `?` : `?filter=${filter}`, {
+      scroll: false,
+    });
+    if (filter === "All") {
       setFilteredData(data);
     } else {
-      const filtered = data.filter((item) => item.tags.includes(filter));
+      setFilteredData(data.filter((item) => item.tags.includes(filter)));
+    }
+  };
+
+  useEffect(() => {
+    if (filterParam === "all" || filterParam === "All") {
+      setFilteredData(data);
+    } else {
+      const filtered = data.filter(
+        (item) => item.tags.length > 0 && item.tags.includes(filterParam)
+      );
       setFilteredData(filtered);
     }
-  }, [filter, data]);
+  }, [filterParam, data]);
 
   return (
     <>
-      <div className="h-10 flex items-center overflow-x-scroll no-scrollbar space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-10 px-6 md:px-10 md:justify-around">
-        {filteringOptions.map((option) => (
+      <div className="h-10 flex items-center overflow-x-scroll no-scrollbar space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-10 px-6 md:px-10">
+        {topTags.map((option) => (
           <Button
             variant="secondary"
             rounded="full"
-            key={option.value}
-            value={option.value}
+            key={option || ""}
+            value={option || ""}
             onClick={() => {
-              setFilter(option.value);
-              setSelectedLabel(option.label);
+              handleFilterChange(option || "");
             }}
+            className={`capitalize ${filterParam === option || (option === "All" && (!filterParam || filterParam === "all")) ? "border border-slate-800" : ""}`}
           >
-            {option.label}
+            {option}
           </Button>
         ))}
       </div>
       {filteredData.length ? (
         <div className="px-6 md:px-10 mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredData.map(({ id, title, _count, media, endsAt }) => (
-            <Link key={id} href={`/listing/${id}`} className="relative">
+          {filteredData.map(({ id, title, _count, media, endsAt }, index) => (
+            <Link key={index} href={`/listing/${id}`} className="relative">
               {media.length > 0 && (
                 <img
                   src={media[0].url}
@@ -53,7 +73,9 @@ export default function Listings({ data }: ListingsProps) {
                 />
               )}
               <div className="py-2">
-                <h2 className="text-lg font-semibold">{title}</h2>
+                <h2 className="text-lg font-semibold overflow-hidden truncate">
+                  {title}
+                </h2>
                 <p className="absolute top-44 right-2 rounded-full text-sm bg-white border py-0.5 px-3">
                   {_count.bids} bids
                 </p>
@@ -68,7 +90,7 @@ export default function Listings({ data }: ListingsProps) {
       ) : (
         <div className="flex text-lg px-6 md:px-10 mt-14 justify-center">
           No listings found for
-          <div className="lowercase ml-2">'{selectedLabel}' tag.</div>
+          <div className="lowercase ml-2">'{selectedFilter}' tag.</div>
         </div>
       )}
     </>

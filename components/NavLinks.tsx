@@ -35,7 +35,9 @@ export default function NavLinks() {
         }`}
       >
         New listings
-        <div className={`${pathname === "/new" ? "active-link" : ""}`} />
+        <div
+          className={`${pathname === "/new-listings" ? "active-link" : ""}`}
+        />
       </Link>
     </div>
   );

@@ -28,13 +28,15 @@ export default function FilteredListings({ data }: FilteredDataProps) {
 
   const filterParam = searchParams.get("filter");
 
-  console.log("filterParam", filterParam);
-
+  // Handles the filter change and updates the URL with the new filter
   const handleFilterChange = (filter: string, label: string): void => {
     setSelectedLabel(label);
-    router.push(`/profile/${params.userName}/listings?filter=${filter}`);
+    router.push(`/profile/${params.userName}/listings?filter=${filter}`, {
+      scroll: false,
+    });
   };
 
+  // Filters the data based on the filter param and updates the filtered data state
   useEffect(() => {
     switch (filterParam) {
       case "all":

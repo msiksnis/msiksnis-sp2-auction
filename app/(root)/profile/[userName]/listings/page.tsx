@@ -16,6 +16,7 @@ export default async function MyListingsPage({
     redirect("/login");
   }
 
+  // Fetching the user's listings
   const url = `${process.env.API_PROFILES}/${params!.userName}/listings?_active`;
   const usersListing = await fetch(url, {
     method: "GET",
@@ -28,6 +29,7 @@ export default async function MyListingsPage({
 
   const { data } = usersListing;
 
+  // Filtering out listings without images
   const listingsWithImages: Listing[] = data.filter(
     (data: Listing) => data.media.length > 0
   );
