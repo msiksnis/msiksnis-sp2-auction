@@ -123,6 +123,7 @@ export default function EditListingForm({
       toast.error("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
+      closeModal();
     }
   };
 
