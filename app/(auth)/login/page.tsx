@@ -44,15 +44,19 @@ export default function LoginPage() {
 
   const [state, formAction] = useFormState(loginAction, initialState);
 
-  useEffect(() => {
-    if (state.success) {
-      redirect("/");
-    }
+  // const isLoggedIn = state.success;
 
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     redirect("/");
+  //   }
+  // }, [isLoggedIn]);
+
+  useEffect(() => {
     if (state.error) {
       toast.error(state.message);
     }
-  }, [state.success, state.error, state.message]);
+  }, [state.error, state.message]);
 
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

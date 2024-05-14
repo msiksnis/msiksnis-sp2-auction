@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { UserProps } from "./Navbar";
 import LogoutButton from "./LogoutButton";
-import NewListingModal from "./modals/NewListingModal";
+import NewListingModal from "./modals/new-listing/NewListingModal";
 
 export default function UserButton({ name, avatar }: UserProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);

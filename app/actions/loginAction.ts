@@ -55,8 +55,6 @@ export default async function loginAction(
     if (data) {
       return { success: true, message: "Login successful!" };
     }
-
-    revalidatePath("/");
   } else {
     return { error: true, message: "Failed to log in. Please try again." };
   }

@@ -6,11 +6,11 @@ const LogoutButton = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const response = await fetch("/api/logout", {
+    const res = await fetch("/api/logout", {
       method: "POST",
     });
 
-    if (response.ok) {
+    if (res.ok) {
       router.refresh();
     } else {
       alert("Logout failed");
