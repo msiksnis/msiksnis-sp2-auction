@@ -39,8 +39,6 @@ export async function PUT(
 ) {
   const body = await req.json();
 
-  console.log(["PUT_BODY"], body);
-
   const url = `${process.env.API_ALL_LISTINGS}/${params.listingId}`;
   const accessToken = cookies().get("accessToken")?.value;
 
@@ -62,8 +60,6 @@ export async function PUT(
       },
       body: JSON.stringify(body),
     });
-
-    console.log(["PUT"], res);
 
     revalidatePath("/");
 

@@ -4,9 +4,9 @@ import Image from "next/image";
 import { Search } from "lucide-react";
 
 import MobileMenu from "./MobileMenu";
-import UserButton from "./UserButton";
 import NavLinks from "./NavLinks";
 import { Button } from "./Button";
+import NavbarMenu from "./NavbarMenu";
 
 export type UserProps = {
   name?: string;
@@ -44,8 +44,15 @@ export default function Navbar() {
         </div>
         {isLoggedIn ? (
           <>
-            <div className="hidden md:block">
-              <UserButton name={name} avatar={avatar} />
+            <div className="hidden md:flex space-x-4">
+              <img
+                src={avatar}
+                alt="avatar"
+                className="hidden md:block hover:-rotate-[10deg] transition-all duration-300 ring-1 ring-slate-900 rounded-full size-10"
+              />
+              <div className="-mt-1">
+                <NavbarMenu name={name} avatar={avatar} />
+              </div>
             </div>
             <div className="md:hidden">
               <MobileMenu name={name} avatar={avatar} />
