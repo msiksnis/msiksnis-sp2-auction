@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { cva, type VariantProps } from "class-variance-authority";
-import { forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -30,11 +29,15 @@ type ButtonProps = VariantProps<typeof buttonVariants> & {
   children: React.ReactNode;
 };
 
-const LogoutButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, size, ...props }, ref) => {
-    const router = useRouter();
+function LogoutButton({ className, size, ...props }: ButtonProps) {
+  const router = useRouter();
 
-    const handleLogout = async () => {
+  const handleLogout = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (props.onClick) {
+      props.onClick(event);
+    }
+
+    if (!event.defaultPrevented) {
       const res = await fetch("/api/logout", {
         method: "POST",
       });
@@ -44,18 +47,18 @@ const LogoutButton = forwardRef<HTMLButtonElement, ButtonProps>(
       } else {
         alert("Logout failed");
       }
-    };
+    }
+  };
 
-    return (
-      <button
-        onClick={handleLogout}
-        className={cn(buttonVariants({ size, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <button
+      onClick={handleLogout}
+      className={cn(buttonVariants({ size }), className)}
+      {...props}
+    />
+  );
+}
+
 LogoutButton.displayName = "LogoutButton";
 
 export { LogoutButton, buttonVariants };
