@@ -18,9 +18,9 @@ export default async function SingleListingPage({
   const { data } = (await listingById.json()) as { data: Listing };
 
   return (
-    <div className="px-4 md:px-10 pt-16 pb-80">
+    <div className="px-4 md:px-10 pt-10 md:pt-16 pb-80">
       <SingleListing data={data} isLoggedIn={isLoggedIn} userName={userName} />
-      <MoreFromSameId />
+      <MoreFromSameId seller={data.seller.name} id={data.id} />
     </div>
   );
 }

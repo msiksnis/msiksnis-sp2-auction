@@ -206,10 +206,13 @@ export default function EditListingForm({
 
         <div className="pt-2">
           <label className="text-sm font-medium">Images</label>
-          <div className="grid grid-cols-4 gap-2 pt-2">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 pt-2">
             {imageFields.map(({ id, url }, index) => (
               <div key={id} className="relative group">
-                <img src={url} className="size-32 rounded-md object-cover" />
+                <img
+                  src={url}
+                  className="h-32 w-full md:size-32 rounded-md object-cover"
+                />
                 <div className="absolute top-1 right-1 bg-white/70 rounded-full p-0.5 cursor-pointer opacity-50 group-hover:opacity-100 transition duration-300 ease-in-out">
                   <X onClick={() => removeMedia(index)} className="size-4" />
                 </div>

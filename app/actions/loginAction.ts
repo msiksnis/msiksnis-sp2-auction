@@ -1,12 +1,11 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import * as z from "zod";
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6),
+  password: z.string().min(8),
 });
 
 export default async function loginAction(
@@ -19,23 +18,28 @@ export default async function loginAction(
   });
 
   if (!validatedData.success) {
-    return { message: "Invalid email or password." };
+    console.log("Validation failed:", validatedData.error);
+    return {
+      state: { success: false, error: true },
+      message: "Invalid email or password.",
+    };
   }
 
   const body = JSON.stringify({
     ...validatedData.data,
   });
 
-  const res = await fetch(process.env.ROOT_URL + "/api/login", {
+  const res = await fetch(`${process.env.ROOT_URL}/api/login`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body,
   });
 
-  const data = await res.json();
-
   if (res.ok) {
-    const { accessToken, name } = data;
-    const avatarUrl = data.avatar.url;
+    const data = await res.json();
+    const { accessToken, name, avatar } = data;
 
     const cookieOptions = {
       secure: process.env.NODE_ENV === "production",
@@ -47,15 +51,21 @@ export default async function loginAction(
 
     cookies().set("accessToken", accessToken, { ...cookieOptions });
     cookies().set("userName", name, { ...cookieOptions, httpOnly: false });
-    cookies().set("userAvatar", avatarUrl, {
+    cookies().set("userAvatar", avatar.url, {
       ...cookieOptions,
       httpOnly: false,
     });
 
-    if (data) {
-      return { success: true, message: "Login successful!" };
-    }
+    return { success: true, message: "Logged in successfully." };
   } else {
-    return { error: true, message: "Failed to log in. Please try again." };
+    const errorData = await res.json();
+    const errorMessage =
+      errorData.message || "Failed to log in. Please try again.";
+
+    console.log("Login failed, setting state to error");
+    return {
+      state: { success: false, error: true },
+      message: errorMessage,
+    };
   }
 }

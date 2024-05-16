@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
+const logoutButtonVariants = cva(
   "hover:underline underline-offset-2 w-full text-left",
   {
     variants: {
@@ -20,16 +20,15 @@ const buttonVariants = cva(
   }
 );
 
-type ButtonProps = VariantProps<typeof buttonVariants> & {
+type LogoutButtonProps = VariantProps<typeof logoutButtonVariants> & {
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
-  value?: string | number;
   disabled?: boolean;
   children: React.ReactNode;
 };
 
-function LogoutButton({ className, size, ...props }: ButtonProps) {
+function LogoutButton({ className, size, ...props }: LogoutButtonProps) {
   const router = useRouter();
 
   const handleLogout = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,7 +52,7 @@ function LogoutButton({ className, size, ...props }: ButtonProps) {
   return (
     <button
       onClick={handleLogout}
-      className={cn(buttonVariants({ size }), className)}
+      className={cn(logoutButtonVariants({ size }), className)}
       {...props}
     />
   );
@@ -61,4 +60,4 @@ function LogoutButton({ className, size, ...props }: ButtonProps) {
 
 LogoutButton.displayName = "LogoutButton";
 
-export { LogoutButton, buttonVariants };
+export { LogoutButton, logoutButtonVariants };

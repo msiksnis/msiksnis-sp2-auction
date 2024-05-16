@@ -9,9 +9,11 @@ import axios from "axios";
 
 import { Button } from "@/components/Button";
 import { Listing } from "@/types/ListingTypes";
-import useTimeLeft from "@/hooks/useTimeLeft";
 import bidAction from "@/app/actions/bidAction";
 import AlertModal from "@/components/modals/AlertModal";
+import EditListingModal from "@/components/modals/edit-listing/EditListingModal";
+import BidHistory from "./BidHistory";
+import TimeLeft from "@/components/TimeLeft";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -48,6 +50,23 @@ export default function SingleListing({
   userName,
 }: SingleListingProps) {
   const [showAllImages, setShowAllImages] = useState(false);
+  const [isEditListingModalOpen, setIsEditListingModalOpen] = useState(false);
+  const [currentListingId, setCurrentListingId] = useState<string | null>(null);
+  const [isAuctionEnded, setIsAuctionEnded] = useState(false);
+
+  useEffect(() => {
+    const checkAuctionEnded = () => {
+      const now = new Date();
+      const endsAtDate = new Date(data.endsAt);
+      setIsAuctionEnded(now > endsAtDate);
+    };
+
+    checkAuctionEnded();
+    const interval = setInterval(checkAuctionEnded, 1000);
+
+    return () => clearInterval(interval);
+  }, [data.endsAt]);
+
   if (!data) {
     redirect(`/profile/${userName}/listings`);
   }
@@ -60,9 +79,9 @@ export default function SingleListing({
 
   const { id, title, description, media, endsAt, bids } = data;
 
-  const timeLeft = useTimeLeft(endsAt);
-
   const router = useRouter();
+
+  const sellerName = data.seller.name as string;
 
   const bidAmount =
     bids && bids.length > 0 ? Math.max(...bids.map((bid) => bid.amount)) : 0;
@@ -107,6 +126,16 @@ export default function SingleListing({
     setIsModalOpen(false);
   };
 
+  const openEditListingModal = (listingId: string | null) => {
+    setCurrentListingId(listingId);
+    setIsEditListingModalOpen(true);
+  };
+
+  const closeEditListingModal = () => {
+    setCurrentListingId(null);
+    setIsEditListingModalOpen(false);
+  };
+
   const onDelete = () => {
     if (!id) return;
 
@@ -139,16 +168,18 @@ export default function SingleListing({
         />
       )}
 
-      <div className="grid grid-cols-5 md:gap-x-10 xl:gap-x-20">
+      <div className="grid md:grid-cols-5 md:gap-x-10 xl:gap-x-20">
         <div className="md:col-span-3">
-          <div className="px-20 pb-6">
-            <h1 className="text-5xl font-medium">{title}</h1>
-            <h2 className="pt-4 text-lg">{description}</h2>
+          <div className="md:px-20 pb-6">
+            <h1 className="text-3xl md:text-5xl font-medium">{title}</h1>
+            <h2 className="pt-2 md:pt-4 md:text-lg text-slate-700 font-light">
+              {description}
+            </h2>
           </div>
           <img
             src={media[0].url}
             alt={media[0].alt}
-            className="w-full rounded-md object-fill"
+            className="md:w-full rounded-md object-fill"
           />
           {showAllImages && (
             <div>
@@ -177,11 +208,14 @@ export default function SingleListing({
             )}
           </div>
         </div>
-        <div className="hidden md:block col-span-2">
+        <div className="block mt-10 md:mt-0 md:col-span-2">
           <div className="flex justify-between items-end lg:px-10">
-            <div className="mb-1">{timeLeft}</div>
+            <TimeLeft endsAt={endsAt} />
             <div className="flex">
-              <div className="relative group size-9 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer">
+              <div
+                className="relative group size-9 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                onClick={() => openEditListingModal(id)}
+              >
                 <Pencil className="size-4 text-green-500" />
                 <div className="absolute -top-5 hidden group-hover:block text-xs">
                   Edit
@@ -207,7 +241,11 @@ export default function SingleListing({
                 {bidAmount} {singularPluralCredit}
               </div>
             </div>
-            {isLoggedIn ? (
+            {isAuctionEnded ? (
+              <div className="text-center text-lg mt-10">
+                This auction has ended.
+              </div>
+            ) : isLoggedIn && userName !== sellerName ? (
               <form id="bidForm" className="my-10" action={formAction}>
                 <input type="hidden" name="listingId" value={data.id} />
                 <input
@@ -255,12 +293,23 @@ export default function SingleListing({
               </form>
             ) : (
               <div className="text-center text-lg mt-10">
-                Please log in to place a bid
+                {userName === sellerName
+                  ? "You cannot bid on your own listing."
+                  : "Please log in to place a bid"}
               </div>
             )}
           </div>
+          <BidHistory bids={data.bids} />
         </div>
       </div>
+      {isEditListingModalOpen && (
+        <EditListingModal
+          isOpen={isEditListingModalOpen}
+          closeModal={closeEditListingModal}
+          onClose={() => setIsEditListingModalOpen(false)}
+          id={currentListingId as string}
+        />
+      )}
     </>
   );
 }

@@ -24,7 +24,7 @@ export async function POST(request: Request) {
         process.env.NODE_ENV === "development"
           ? `${apiResponse.status}: ${errorData.message || "Failed to authenticate."}`
           : "Authentication failed. Please check your credentials and try again.";
-      return new Response(JSON.stringify({ error: errorMessage }), {
+      return new NextResponse(JSON.stringify({ error: errorMessage }), {
         status: apiResponse.status,
       });
     }

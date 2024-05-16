@@ -24,18 +24,20 @@ export default function NavbarMenu({ name, avatar }: UserProps) {
       {isModalOpen && <NewListingModal closeModal={closeModal} />}
       <Hamburger toggled={isOpen} toggle={setOpen} rounded size={30} />
       <motion.div
-        initial={{ opacity: 0, x: "100%" }}
-        animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : "100%" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isOpen ? 1 : 0 }}
         transition={{
           type: "spring",
           stiffness: 390,
           damping: 30,
           duration: 0.1,
         }}
-        className={`border border-slate-800 rounded-md shadow z-20 bg-bg absolute top-20 right-0 ${isOpen ? "block" : "none"}`}
+        className={`border border-slate-800 rounded-md shadow z-20 bg-bg absolute top-20 right-0 ${
+          isOpen ? "opacity-100" : "opacity-0"
+        }`}
       >
         <div className="whitespace-nowrap font-medium rounded-md py-2 px-6">
-          <div className="text-cente py-2 max-w-32 truncate">{name}</div>
+          <div className="text-center py-2 max-w-32 truncate">{name}</div>
           <div className="flex flex-col space-y-1 border-t border-slate-800">
             <Link
               href={`/profile/${name}`}
