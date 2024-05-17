@@ -21,9 +21,13 @@ const filteringOptions = [
 
 interface FilteredDataProps {
   data: Listing[];
+  loggedInUser: string;
 }
 
-export default function FilteredListings({ data }: FilteredDataProps) {
+export default function FilteredListings({
+  data,
+  loggedInUser,
+}: FilteredDataProps) {
   const [filteredData, setFilteredData] = useState(data);
   const [selectedLabel, setSelectedLabel] = useState("All");
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
@@ -154,20 +158,22 @@ export default function FilteredListings({ data }: FilteredDataProps) {
                   <p className="text-sm">{getTimeLeft(endsAt)}</p>
                 </div>
               </Link>
-              <div className="absolute bottom-1 right-3">
-                <div
-                  onClick={() => openEditListingModal(id)}
-                  className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
-                >
-                  <Pencil className="size-4 text-green-500" />
+              {loggedInUser === params.userName && (
+                <div className="absolute bottom-1 right-3">
+                  <div
+                    onClick={() => openEditListingModal(id)}
+                    className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                  >
+                    <Pencil className="size-4 text-green-500" />
+                  </div>
+                  <div
+                    onClick={() => openAlertModal(id)}
+                    className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                  >
+                    <Trash2 className="size-4 text-red-500" />
+                  </div>
                 </div>
-                <div
-                  onClick={() => openAlertModal(id)}
-                  className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
-                >
-                  <Trash2 className="size-4 text-red-500" />
-                </div>
-              </div>
+              )}
             </div>
           ))}
         </div>

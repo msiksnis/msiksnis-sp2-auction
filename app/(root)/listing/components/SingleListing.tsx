@@ -211,26 +211,28 @@ export default function SingleListing({
         <div className="block mt-10 md:mt-0 md:col-span-2">
           <div className="flex justify-between items-end lg:px-10">
             <TimeLeft endsAt={endsAt} />
-            <div className="flex">
-              <div
-                className="relative group size-9 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
-                onClick={() => openEditListingModal(id)}
-              >
-                <Pencil className="size-4 text-green-500" />
-                <div className="absolute -top-5 hidden group-hover:block text-xs">
-                  Edit
+            {userName === sellerName && (
+              <div className="flex">
+                <div
+                  className="relative group size-9 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                  onClick={() => openEditListingModal(id)}
+                >
+                  <Pencil className="size-4 text-green-500" />
+                  <div className="absolute -top-5 hidden group-hover:block text-xs">
+                    Edit
+                  </div>
+                </div>
+                <div
+                  onClick={() => openModal()}
+                  className="relative group size-9 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                >
+                  <Trash2 className="size-4 text-red-500" />
+                  <div className="absolute -top-5 hidden group-hover:block text-xs">
+                    Delete
+                  </div>
                 </div>
               </div>
-              <div
-                onClick={() => openModal()}
-                className="relative group size-9 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
-              >
-                <Trash2 className="size-4 text-red-500" />
-                <div className="absolute -top-5 hidden group-hover:block text-xs">
-                  Delete
-                </div>
-              </div>
-            </div>
+            )}
           </div>
           <div className="mt-4 border border-gray-300 border-t-2 border-t-black rounded-md py-6 px-4">
             <div className="flex flex-col">

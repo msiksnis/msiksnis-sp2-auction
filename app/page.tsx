@@ -1,7 +1,8 @@
+import { revalidatePath } from "next/cache";
+
 import Hero from "@/components/Hero";
 import Listings from "@/components/Listings";
 import { Listing } from "@/types/ListingTypes";
-import { revalidatePath } from "next/cache";
 
 const baseUrl =
   process.env.API_ALL_LISTINGS + "?_bids=true&_seller=true&_active=true";

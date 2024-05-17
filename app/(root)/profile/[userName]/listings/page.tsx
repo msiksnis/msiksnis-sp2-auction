@@ -11,6 +11,7 @@ export default async function MyListingsPage({
 }) {
   const isLoggedIn = cookies().get("accessToken") ? true : false;
   const accessToken = cookies().get("accessToken")?.value;
+  const loggedInUser = cookies().get("userName")?.value;
 
   if (!isLoggedIn) {
     redirect("/login");
@@ -39,7 +40,10 @@ export default async function MyListingsPage({
       <div className="">
         <h1 className="text-2xl">Listings by {params.userName}</h1>
       </div>
-      <FilteredListings data={listingsWithImages} />
+      <FilteredListings
+        data={listingsWithImages}
+        loggedInUser={loggedInUser ?? ""}
+      />
     </div>
   );
 }

@@ -12,36 +12,18 @@ import NewListingModal from "./modals/new-listing/NewListingModal";
 
 export default function NavbarMenu({ name, avatar }: UserProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = () => setOpen(!isOpen);
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
   return (
     <div className="relative">
       {isModalOpen && <NewListingModal closeModal={closeModal} />}
-      <Hamburger toggled={isOpen} toggle={setOpen} rounded size={30} />
+      <Hamburger toggled={isOpen} toggle={setIsOpen} rounded size={30} />
       {isOpen && (
         <motion.div
           ref={menuRef}
@@ -93,7 +75,13 @@ export default function NavbarMenu({ name, avatar }: UserProps) {
               </button>
             </div>
             <div className="py-2 mt-2 border-t border-slate-800">
-              <LogoutButton>Logout</LogoutButton>
+              <LogoutButton
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              >
+                Log out
+              </LogoutButton>
             </div>
           </div>
         </motion.div>
