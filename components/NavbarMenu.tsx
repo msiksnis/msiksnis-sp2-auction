@@ -64,6 +64,13 @@ export default function NavbarMenu({ name, avatar }: UserProps) {
               >
                 My Active Bids
               </Link>
+              <Link
+                href={`/profile/${name}/favorites`}
+                className="link py-1"
+                onClick={toggleMenu}
+              >
+                My Favorites
+              </Link>
               <button
                 onClick={() => {
                   openModal();

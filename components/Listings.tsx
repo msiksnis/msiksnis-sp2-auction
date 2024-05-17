@@ -10,6 +10,7 @@ import { getTimeLeft } from "@/lib/time-converter";
 import { Button } from "./Button";
 import useTopTags from "@/hooks/useTopTags";
 import Loading from "@/app/loading";
+import { addFavorite, getFavorites, removeFavorite } from "@/lib/local-storage";
 
 export default function Listings({ data }: ListingsProps) {
   const searchParams = useSearchParams();
@@ -21,6 +22,7 @@ export default function Listings({ data }: ListingsProps) {
   const [selectedFilter, setSelectedFilter] = useState(filterParam);
   const [activeButton, setActiveButton] = useState(filterParam);
   const [isLoading, setIsLoading] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>(getFavorites());
 
   // Handle filter change and update the filtered data
   const handleFilterChange = (filter: string) => {
@@ -56,6 +58,15 @@ export default function Listings({ data }: ListingsProps) {
       filterParam === "all" || !filterParam ? "All" : filterParam
     );
   }, [filterParam]);
+
+  const toggleFavorite = (id: string) => {
+    if (favorites.includes(id)) {
+      removeFavorite(id);
+    } else {
+      addFavorite(id);
+    }
+    setFavorites(getFavorites());
+  };
 
   return (
     <>
@@ -101,7 +112,10 @@ export default function Listings({ data }: ListingsProps) {
                 <p className="absolute top-44 right-2 rounded-full text-sm bg-white border py-0.5 px-3">
                   {_count.bids} bids
                 </p>
-                <div className="absolute flex justify-center items-center top-2 right-2 rounded-full text-sm bg-white border p-1 cursor-pointer group">
+                <div
+                  onClick={() => toggleFavorite(id)}
+                  className="absolute flex justify-center items-center top-2 right-2 rounded-full text-sm bg-white border p-1 cursor-pointer group"
+                >
                   <Heart className="size-5 text-slate-800 transition-all group-hover:text-red-500" />
                 </div>
                 <p className="text-sm">{getTimeLeft(endsAt)}</p>
