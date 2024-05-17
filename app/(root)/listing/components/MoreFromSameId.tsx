@@ -3,6 +3,7 @@ import { getTimeLeft } from "@/lib/time-converter";
 import { Heart } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import NoToken from "./NoToken";
 
 interface ListingsWithSeller {
   id: string;
@@ -27,6 +28,10 @@ export default async function MoreFromSameId({
   id: string;
 }) {
   const accessToken = cookies().get("accessToken")?.value;
+
+  if (!accessToken) {
+    return <NoToken seller={seller} />;
+  }
 
   const url = process.env.API_PROFILES + `/${seller}?_listings=true&_bids=true`;
 

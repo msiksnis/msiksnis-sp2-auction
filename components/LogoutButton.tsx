@@ -42,6 +42,7 @@ function LogoutButton({ className, size, ...props }: LogoutButtonProps) {
       });
 
       if (res.ok) {
+        document.body.style.overflow = "auto";
         router.refresh();
       } else {
         alert("Logout failed");

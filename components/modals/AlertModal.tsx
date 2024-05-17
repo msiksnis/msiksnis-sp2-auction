@@ -23,6 +23,8 @@ export default function AlertModal({
   useEffect(() => {
     setIsMounted(true);
 
+    document.body.style.overflow = "hidden";
+
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         modalRef.current &&
@@ -42,6 +44,7 @@ export default function AlertModal({
     document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
+      document.body.style.overflow = "auto";
       document.removeEventListener("mousedown", handleOutsideClick);
       document.removeEventListener("keydown", handleEscapeKey);
     };

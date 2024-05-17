@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import { Search } from "lucide-react";
 
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import { Button } from "./Button";
 import NavbarMenu from "./NavbarMenu";
+import SearchComponent from "./SearchComponent";
 
 export type UserProps = {
   name?: string;
@@ -34,16 +34,10 @@ export default function Navbar() {
           className="scale-75 md:scale-100 -ml-6 sm:ml-0 lg:-ml-6 w-auto"
         />
       </Link>
-      <div className="flex items-center space-x-4 xl:space-x-10">
-        <div className="hidden md:block relative cursor-pointer group">
-          <div className="hidden xl:flex items-center w-36 text-sm text-gray-500 bg-gray-100 h-10 px-4 rounded-full placeholder:text-sm placeholder:font-light">
-            Search...
-          </div>
-          <div className="xl:hidden size-9 bg-gray-100 rounded-full border"></div>
-          <Search className="absolute right-2 xl:right-4 top-2 xl:top-3 size-5 opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-300" />
-        </div>
+      <div className="flex items-center">
+        <SearchComponent />
         {isLoggedIn ? (
-          <>
+          <div className="pl-4 xl:pl-10 space-x-4 xl:space-x-10">
             <div className="hidden md:flex space-x-4">
               <img
                 src={avatar}
@@ -57,19 +51,19 @@ export default function Navbar() {
             <div className="md:hidden">
               <MobileMenu name={name} avatar={avatar} />
             </div>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="flex items-center pl-4 space-x-4">
             <Link
               href="/login"
               className="xl:pl-4 whitespace-nowrap hover:underline underline-offset-2 text-sm md:text-base text-slate-950 transition-all"
             >
               Log in
             </Link>
-            <Button rounded="full">
+            <Button rounded="full" className="hidden md:block">
               <Link href="/signup">Sign up</Link>
             </Button>
-          </>
+          </div>
         )}
       </div>
     </div>

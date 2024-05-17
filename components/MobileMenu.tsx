@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Rotate as Hamburger } from "hamburger-react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
@@ -18,6 +18,14 @@ export default function MobileMenu({ name, avatar }: UserProps) {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isOpen]);
 
   return (
     <>
@@ -77,7 +85,7 @@ export default function MobileMenu({ name, avatar }: UserProps) {
             </Link>
           </div>
           <div className="py-2 mt-10 border-t border-slate-800 w-full">
-            <LogoutButton size="large">Logout</LogoutButton>
+            <LogoutButton size="large">Log out</LogoutButton>
           </div>
         </div>
       )}

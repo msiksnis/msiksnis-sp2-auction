@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import { redirect, useSearchParams } from "next/navigation";
 
 import loginAction from "@/app/actions/loginAction";
 import Input from "@/components/Input";
@@ -28,25 +29,23 @@ function SubmitButton() {
   );
 }
 
-const initialState = {
-  email: "",
-  password: "",
-  message: "",
-  state: {
-    success: false,
-    error: false,
-  },
-};
-
-export default function LoginForm() {
+export default function LoginForm({ loggedIn }: { loggedIn: boolean }) {
   const [showPassword, setShowPassword] = useState(false);
-  const [state, formAction] = useFormState(loginAction, initialState);
+  const [error, formAction] = useFormState(loginAction, undefined);
+
+  const searchParams = useSearchParams();
+
+  const redirectUrl = searchParams.get("redirect") || "/";
 
   useEffect(() => {
-    if (state.state.error) {
-      toast.error(state.message);
+    if (loggedIn) {
+      redirectUrl ? redirect(redirectUrl) : redirect("/");
     }
-  }, [state.state.error, state.message]);
+
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error, redirectUrl, loggedIn]);
 
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
