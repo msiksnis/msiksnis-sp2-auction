@@ -96,9 +96,9 @@ export default function Listings({ data }: ListingsProps) {
                   />
                 )}
                 <div className="py-2">
-                  <h2 className="text-lg font-semibold overflow-hidden truncate first-letter:capitalize">
+                  <h1 className="text-lg font-semibold overflow-hidden truncate first-letter:capitalize">
                     {title}
-                  </h2>
+                  </h1>
                   <p className="absolute top-44 right-2 rounded-full text-sm bg-white border py-0.5 px-3">
                     {_count.bids} bids
                   </p>
