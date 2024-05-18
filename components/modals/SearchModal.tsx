@@ -104,7 +104,7 @@ export default function SearchModal({
     <div className="fixed inset-0 z-50 bg-black/30 flex justify-center px-4">
       <div
         ref={modalRef}
-        className="w-full max-w-xl max-h-[90vh] md:max-h-[95vh] no-scrollbar overflow-y-auto bg-white rounded-lg shadow-lg outline-none focus:outline-none mb-10 h-fit mt-20 md:mt-5 p-4"
+        className="w-full max-w-xl max-h-[80vh] md:max-h-[95vh] no-scrollbar overflow-y-auto bg-white rounded-lg shadow-lg outline-none focus:outline-none mb-10 h-fit mt-24 md:mt-5 p-4"
       >
         <div className="">
           <Input

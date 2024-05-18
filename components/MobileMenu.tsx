@@ -35,7 +35,6 @@ export default function MobileMenu({ name, avatar }: UserProps) {
           <div className="flex justify-between items-end w-full">
             <div className="text-xl py-2">{name}</div>
             <Button
-              variant="outline"
               size="sm"
               onClick={() => {
                 openModal();
@@ -84,7 +83,7 @@ export default function MobileMenu({ name, avatar }: UserProps) {
               My Favorites
             </Link>
           </div>
-          <div className="py-2 mt-10 border-t border-slate-800 w-full">
+          <div className="py-3 mt-10 border-t border-slate-800 w-full">
             <LogoutButton size="large">Log out</LogoutButton>
           </div>
         </div>
