@@ -2,6 +2,19 @@ import { cookies } from "next/headers";
 
 import { Listing } from "@/types/ListingTypes";
 import ActiveBids from "./components/ActiveBids";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { userName: string };
+}): Promise<Metadata> {
+  const userName = params.userName;
+
+  return {
+    title: `Auction House | ${userName}'s Active Bids`,
+  };
+}
 
 interface Bid {
   id: string;

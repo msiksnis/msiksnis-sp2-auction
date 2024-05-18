@@ -11,7 +11,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const { id } = params;
-  const url = process.env.API_ALL_LISTINGS + `/${id}?_bids=true&_seller=true`;
+  const url = process.env.API_ALL_LISTINGS + `/${id}`;
 
   const listingById = await fetch(url);
   const { data } = (await listingById.json()) as { data: Listing };

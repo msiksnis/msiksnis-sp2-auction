@@ -1,4 +1,18 @@
+import { Metadata } from "next";
+
 import Favorites from "./components/Favorites";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { userName: string };
+}): Promise<Metadata> {
+  const userName = params.userName;
+
+  return {
+    title: `Auction House | ${userName}'s Favorites`,
+  };
+}
 
 export default function FavoritesPage() {
   return (

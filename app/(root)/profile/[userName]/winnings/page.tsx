@@ -1,7 +1,19 @@
-import { getTimeLeft } from "@/lib/time-converter";
+import { Metadata } from "next";
 import { format } from "date-fns";
 import { cookies } from "next/headers";
 import Link from "next/link";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { userName: string };
+}): Promise<Metadata> {
+  const userName = params.userName;
+
+  return {
+    title: `Auction House | ${userName}'s Winnings`,
+  };
+}
 
 interface Win {
   id: string;

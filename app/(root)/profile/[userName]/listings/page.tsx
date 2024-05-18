@@ -1,8 +1,21 @@
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import FilteredListings from "./components/FilteredListings";
 import { Listing } from "@/types/ListingTypes";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { userName: string };
+}): Promise<Metadata> {
+  const userName = params.userName;
+
+  return {
+    title: `Auction House | ${userName}'s Listings`,
+  };
+}
 
 export default async function MyListingsPage({
   params,

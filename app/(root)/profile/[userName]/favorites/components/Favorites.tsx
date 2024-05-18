@@ -69,7 +69,7 @@ export default function Favorites() {
                 />
               )}
               <div className="py-2">
-                <h2 className="text-lg font-semibold overflow-hidden truncate">
+                <h2 className="text-lg font-semibold overflow-hidden truncate first-letter:capitalize">
                   {title}
                 </h2>
                 <p className="absolute top-44 right-2 rounded-full text-sm bg-white border py-0.5 px-3">
