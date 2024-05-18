@@ -67,7 +67,7 @@ export async function PUT(
       status: 200,
     });
   } catch (error) {
-    console.log(["CANINE_PUT"], error);
+    console.log(["LISTINGS_PUT"], error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -103,7 +103,7 @@ export async function DELETE(
       status: 200,
     });
   } catch (error) {
-    console.log(["CANINE_DELETE"], error);
+    console.log(["LISTINGS_DELETE"], error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

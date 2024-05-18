@@ -4,6 +4,7 @@ import { Heart } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import NoToken from "./NoToken";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface ListingsWithSeller {
   id: string;
@@ -83,16 +84,16 @@ export default async function MoreFromSameId({
                 <h2 className="md:text-lg font-semibold overflow-hidden truncate">
                   {title}
                 </h2>
-                <div className="absolute flex justify-center items-center top-2 right-2 rounded-full text-sm bg-white border p-1 cursor-pointer group scale-90 md:scale-100">
-                  <Heart className="size-5 text-slate-800 transition-all group-hover:text-red-500" />
-                </div>
+                <FavoriteButton id={id} />
                 <p className="text-xs md:text-sm">{getTimeLeft(endsAt)}</p>
               </div>
             </Link>
           ))}
         </div>
       ) : (
-        <div className="text-gray-700">This seller has no active listings.</div>
+        <div className="text-gray-700">
+          This seller has no other active listings.
+        </div>
       )}
     </>
   );

@@ -14,6 +14,7 @@ import AlertModal from "@/components/modals/AlertModal";
 import EditListingModal from "@/components/modals/edit-listing/EditListingModal";
 import BidHistory from "./BidHistory";
 import TimeLeft from "@/components/TimeLeft";
+import FavoriteButton from "@/components/FavoriteButton";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -211,7 +212,7 @@ export default function SingleListing({
         <div className="block mt-10 md:mt-0 md:col-span-2">
           <div className="flex justify-between items-end lg:px-10">
             <TimeLeft endsAt={endsAt} />
-            {userName === sellerName && (
+            {userName === sellerName ? (
               <div className="flex">
                 <div
                   className="relative group size-9 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
@@ -231,6 +232,14 @@ export default function SingleListing({
                     Delete
                   </div>
                 </div>
+              </div>
+            ) : (
+              <div className="scale-125">
+                <FavoriteButton
+                  id={id}
+                  position="static"
+                  className="border-none"
+                />
               </div>
             )}
           </div>
