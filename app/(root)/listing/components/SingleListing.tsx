@@ -172,8 +172,10 @@ export default function SingleListing({
       <div className="grid md:grid-cols-5 md:gap-x-10 xl:gap-x-20">
         <div className="md:col-span-3">
           <div className="md:px-20 pb-6">
-            <h1 className="text-3xl md:text-5xl font-medium">{title}</h1>
-            <h2 className="pt-2 md:pt-4 md:text-lg text-slate-700 font-light">
+            <h1 className="text-3xl md:text-5xl font-medium first-letter:capitalize">
+              {title}
+            </h1>
+            <h2 className="pt-2 md:pt-4 md:text-lg text-slate-700 font-light first-letter:capitalize">
               {description}
             </h2>
           </div>

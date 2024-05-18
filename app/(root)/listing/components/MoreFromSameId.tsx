@@ -81,7 +81,7 @@ export default async function MoreFromSameId({
                 />
               </div>
               <div className="py-2 w-52 md:w-80">
-                <h2 className="md:text-lg font-semibold overflow-hidden truncate">
+                <h2 className="md:text-lg font-semibold overflow-hidden truncate first-letter:capitalize">
                   {title}
                 </h2>
                 <FavoriteButton id={id} />

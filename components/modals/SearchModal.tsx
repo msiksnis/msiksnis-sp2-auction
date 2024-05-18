@@ -134,7 +134,9 @@ export default function SearchModal({
                     className="h-10 w-14 object-cover rounded-md my-1 mr-4"
                   />
                 )}
-                <h1 className="text-lg font-medium">{result.title}</h1>
+                <h1 className="text-lg font-medium first-letter:capitalize">
+                  {result.title}
+                </h1>
               </Link>
             ))
           ) : (
