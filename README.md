@@ -1,5 +1,7 @@
 # Auction House
 
+**(This is a school project built by Martins Siksnis)**
+
 Auction House is a web application that allows users to create, browse, bid on, and manage auction listings. The project is built using Next.js, leveraging server-side rendering and static site generation for optimized performance.
 
 ## Table of Contents
@@ -42,7 +44,7 @@ Auction House is a web application that allows users to create, browse, bid on, 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/auction-house.git
+   git clone https://github.com/msiksnis/msiksnis-sp2-auction.git
    cd auction-house
 
    ```
