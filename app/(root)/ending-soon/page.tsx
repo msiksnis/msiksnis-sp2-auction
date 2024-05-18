@@ -41,8 +41,6 @@ export default async function EndingSoonPage() {
 
   revalidatePath("/");
 
-  console.log(endingSoonData);
-
   return (
     <>
       <Hero />

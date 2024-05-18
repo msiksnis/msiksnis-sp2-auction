@@ -1,8 +1,7 @@
-import { Listing } from "@/types/ListingTypes";
 import { cookies } from "next/headers";
+
+import { Listing } from "@/types/ListingTypes";
 import ActiveBids from "./components/ActiveBids";
-import Link from "next/link";
-import { getTimeLeft } from "@/lib/time-converter";
 
 interface Bid {
   id: string;

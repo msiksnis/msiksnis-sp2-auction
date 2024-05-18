@@ -87,7 +87,7 @@ export default function ActiveBids({ activeBids }: { activeBids: Bid[] }) {
         </div>
       ) : (
         <div className="md:text-lg text-center mt-10">
-          You don't have any active bids.
+          You have no active bids yet.
         </div>
       )}
     </div>

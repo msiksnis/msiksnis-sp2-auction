@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -25,10 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} ${bangers.variable}`}>
+      <body
+        className={`${montserrat.className} ${bangers.variable} flex flex-col min-h-screen`}
+      >
         <Toaster position="top-center" reverseOrder={false} />
         <Navbar />
-        {children}
+        <main className="flex-grow">{children}</main>
+        <Footer />
       </body>
     </html>
   );
