@@ -1,7 +1,27 @@
+import { Metadata } from "next";
+import { cookies } from "next/headers";
+
 import { Listing } from "@/types/ListingTypes";
 import SingleListing from "../components/SingleListing";
-import { cookies } from "next/headers";
 import MoreFromSameId from "../components/MoreFromSameId";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const { id } = params;
+  const url = process.env.API_ALL_LISTINGS + `/${id}?_bids=true&_seller=true`;
+
+  const listingById = await fetch(url);
+  const { data } = (await listingById.json()) as { data: Listing };
+
+  return {
+    title: `Auction House | ${data.title}`,
+    description:
+      data.description || "Discover more details about this listing.",
+  };
+}
 
 export default async function SingleListingPage({
   params,

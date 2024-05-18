@@ -1,8 +1,15 @@
+import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
 import Hero from "@/components/Hero";
 import Listings from "@/components/Listings";
 import { Listing } from "@/types/ListingTypes";
+
+export const metadata: Metadata = {
+  title: "Auction House | Ending Soon",
+  description:
+    "Don't miss out on great deals! Check out the items ending soon on Auction House. Place your bids before time runs out and win unique products at amazing prices.",
+};
 
 const baseUrl =
   process.env.API_ALL_LISTINGS + "?_bids=true&_seller=true&_active=true";
