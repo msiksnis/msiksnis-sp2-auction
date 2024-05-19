@@ -34,7 +34,7 @@ export default function NavbarMenu({ name, avatar }: UserProps) {
           className="border border-slate-800 rounded-md shadow z-20 bg-bg absolute top-20 right-0"
         >
           <div className="whitespace-nowrap font-medium rounded-md py-2 px-6">
-            <div className="text-center py-2 max-w-32 truncate">{name}</div>
+            <div className="py-2 max-w-32 truncate">{name}</div>
             <div className="flex flex-col space-y-1 border-t border-slate-800">
               <Link
                 href={`/profile/${name}`}
