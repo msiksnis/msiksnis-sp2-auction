@@ -6,6 +6,23 @@ body {
   @apply bg-bg max-w-[1550px] mx-auto selection:bg-black selection:text-white text-slate-900;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
 @layer components {
   .custom-triangle {
     border-left: 25px solid transparent;

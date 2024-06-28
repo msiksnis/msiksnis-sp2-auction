@@ -39,8 +39,11 @@ export async function PUT(
 ) {
   const body = await req.json();
 
+<<<<<<< HEAD
   console.log(["PUT_BODY"], body);
 
+=======
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c
   const url = `${process.env.API_ALL_LISTINGS}/${params.listingId}`;
   const accessToken = cookies().get("accessToken")?.value;
 
@@ -63,15 +66,22 @@ export async function PUT(
       body: JSON.stringify(body),
     });
 
+<<<<<<< HEAD
     console.log(["PUT"], res);
 
+=======
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c
     revalidatePath("/");
 
     return new Response(JSON.stringify({ success: true, data: res }), {
       status: 200,
     });
   } catch (error) {
+<<<<<<< HEAD
     console.log(["CANINE_PUT"], error);
+=======
+    console.log(["LISTINGS_PUT"], error);
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -107,7 +117,7 @@ export async function DELETE(
       status: 200,
     });
   } catch (error) {
-    console.log(["CANINE_DELETE"], error);
+    console.log(["LISTINGS_DELETE"], error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

@@ -1,9 +1,22 @@
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { Listing } from "@/types/ListingTypes";
 import FilteredListings from "./components/FilteredListings";
 import NewListingButton from "./components/NewListingButton";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { userName: string };
+}): Promise<Metadata> {
+  const userName = params.userName;
+
+  return {
+    title: `Auction House | ${userName}'s Listings`,
+  };
+}
 
 export default async function MyListingsPage({
   params,
@@ -12,6 +25,7 @@ export default async function MyListingsPage({
 }) {
   const isLoggedIn = cookies().get("accessToken") ? true : false;
   const accessToken = cookies().get("accessToken")?.value;
+  const loggedInUser = cookies().get("userName")?.value;
 
   if (!isLoggedIn) {
     redirect("/login");
@@ -41,7 +55,10 @@ export default async function MyListingsPage({
         <h1 className="text-2xl">Listings by {params.userName}</h1>
         <NewListingButton />
       </div>
-      <FilteredListings data={listingsWithImages} />
+      <FilteredListings
+        data={listingsWithImages}
+        loggedInUser={loggedInUser ?? ""}
+      />
     </div>
   );
 }

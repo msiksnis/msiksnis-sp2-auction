@@ -46,7 +46,7 @@ export default async function UserData({
     <div className="py-10 space-y-10">
       <div className="border-b pb-4">
         <div className="text-sm mb-2 uppercase">Name</div>
-        <div className="text-xl">{user?.name}</div>
+        <h1 className="text-xl">{user?.name}</h1>
         <Button variant="link" disabled className="p-0 mt-4">
           Name can't be changed
         </Button>

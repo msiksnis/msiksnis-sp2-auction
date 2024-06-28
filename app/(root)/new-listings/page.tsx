@@ -1,8 +1,15 @@
+import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
 import Hero from "@/components/Hero";
 import Listings from "@/components/Listings";
 import { Listing } from "@/types/ListingTypes";
+
+export const metadata: Metadata = {
+  title: "Auction House | New Listings",
+  description:
+    "Discover the latest items available for auction on Auction House. Be the first to place your bids on brand new listings and find unique products every day.",
+};
 
 const baseUrl =
   process.env.API_ALL_LISTINGS + "?_bids=true&_seller=true&_active=true";

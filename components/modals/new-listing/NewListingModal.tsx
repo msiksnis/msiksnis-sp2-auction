@@ -18,6 +18,9 @@ export default function NewListingModal({ closeModal }: NewListingModalProps) {
   useEffect(() => {
     setIsMounted(true);
 
+    // To disable background scrolling when the modal is open
+    document.body.style.overflow = "hidden";
+
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         modalRef.current &&
@@ -37,6 +40,8 @@ export default function NewListingModal({ closeModal }: NewListingModalProps) {
     document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
+      // Re-enable background scrolling when the modal is closed
+      document.body.style.overflow = "auto";
       document.removeEventListener("mousedown", handleOutsideClick);
       document.removeEventListener("keydown", handleEscapeKey);
     };
@@ -45,7 +50,7 @@ export default function NewListingModal({ closeModal }: NewListingModalProps) {
   if (!isMounted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 flex justify-center items-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/70 flex justify-center items-center p-4">
       <div
         ref={modalRef}
         className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white border border-slate-900 rounded-lg shadow-lg outline-none focus:outline-none no-scrollbar"

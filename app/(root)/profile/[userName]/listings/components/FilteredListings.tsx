@@ -21,9 +21,13 @@ const filteringOptions = [
 
 interface FilteredDataProps {
   data: Listing[];
+  loggedInUser: string;
 }
 
-export default function FilteredListings({ data }: FilteredDataProps) {
+export default function FilteredListings({
+  data,
+  loggedInUser,
+}: FilteredDataProps) {
   const [filteredData, setFilteredData] = useState(data);
   const [selectedLabel, setSelectedLabel] = useState("All");
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
@@ -71,6 +75,7 @@ export default function FilteredListings({ data }: FilteredDataProps) {
   }, [filterParam, data]);
 
   const openAlertModal = (listingId: string | null) => {
+<<<<<<< HEAD
     setCurrentListingId(listingId);
     setIsAlertModalOpen(true);
   };
@@ -87,6 +92,24 @@ export default function FilteredListings({ data }: FilteredDataProps) {
 
   const closeEditListingModal = () => {
     setCurrentListingId(null);
+=======
+    setCurrentListingId(listingId);
+    setIsAlertModalOpen(true);
+  };
+
+  const closeAlertModal = () => {
+    setCurrentListingId(null);
+    setIsAlertModalOpen(false);
+  };
+
+  const openEditListingModal = (listingId: string | null) => {
+    setCurrentListingId(listingId);
+    setIsEditListingModalOpen(true);
+  };
+
+  const closeEditListingModal = () => {
+    setCurrentListingId(null);
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c
     setIsEditListingModalOpen(false);
   };
 
@@ -154,6 +177,7 @@ export default function FilteredListings({ data }: FilteredDataProps) {
                   <p className="text-sm">{getTimeLeft(endsAt)}</p>
                 </div>
               </Link>
+<<<<<<< HEAD
               <div className="absolute bottom-1 right-3">
                 <div
                   onClick={() => openEditListingModal(id)}
@@ -166,8 +190,24 @@ export default function FilteredListings({ data }: FilteredDataProps) {
                   className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
                 >
                   <Trash2 className="size-4 text-red-500" />
+=======
+              {loggedInUser === params.userName && (
+                <div className="absolute bottom-1 right-3">
+                  <div
+                    onClick={() => openEditListingModal(id)}
+                    className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                  >
+                    <Pencil className="size-4 text-green-500" />
+                  </div>
+                  <div
+                    onClick={() => openAlertModal(id)}
+                    className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                  >
+                    <Trash2 className="size-4 text-red-500" />
+                  </div>
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c
                 </div>
-              </div>
+              )}
             </div>
           ))}
         </div>

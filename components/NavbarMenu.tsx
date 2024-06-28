@@ -1,25 +1,42 @@
 "use client";
 
+<<<<<<< HEAD:components/UserButton.tsx
 import { useState } from "react";
 import { Plus } from "lucide-react";
+=======
+import { useEffect, useRef, useState } from "react";
+import { Rotate as Hamburger } from "hamburger-react";
+import { motion } from "framer-motion";
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c:components/NavbarMenu.tsx
 import Link from "next/link";
+import { Plus } from "lucide-react";
 
 import { UserProps } from "./Navbar";
+<<<<<<< HEAD:components/UserButton.tsx
 import LogoutButton from "./LogoutButton";
+=======
+import { LogoutButton } from "./LogoutButton";
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c:components/NavbarMenu.tsx
 import NewListingModal from "./modals/new-listing/NewListingModal";
 
-export default function UserButton({ name, avatar }: UserProps) {
+export default function NavbarMenu({ name, avatar }: UserProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+<<<<<<< HEAD:components/UserButton.tsx
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+=======
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c:components/NavbarMenu.tsx
 
-  const toggleMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <>
+    <div className="relative">
       {isModalOpen && <NewListingModal closeModal={closeModal} />}
+<<<<<<< HEAD:components/UserButton.tsx
       <div className="relative">
         <div onClick={toggleMenu}>
           <img
@@ -36,6 +53,19 @@ export default function UserButton({ name, avatar }: UserProps) {
           }
         >
           <div className="whitespace-nowrap font-medium rounded-md py-2 px-4">
+=======
+      <Hamburger toggled={isOpen} toggle={setIsOpen} rounded size={30} />
+      {isOpen && (
+        <motion.div
+          ref={menuRef}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 390, damping: 30 }}
+          className="border border-slate-800 rounded-md shadow z-20 bg-bg absolute top-20 right-0"
+        >
+          <div className="whitespace-nowrap font-medium rounded-md py-2 px-6">
+>>>>>>> 6f81d2ed69fc40b2e54f9ba91d41bca24f9ec54c:components/NavbarMenu.tsx
             <div className="py-2 max-w-32 truncate">{name}</div>
             <div className="flex flex-col space-y-1 border-t border-slate-800">
               <Link
@@ -66,6 +96,13 @@ export default function UserButton({ name, avatar }: UserProps) {
               >
                 My Active Bids
               </Link>
+              <Link
+                href={`/profile/${name}/favorites`}
+                className="link py-1"
+                onClick={toggleMenu}
+              >
+                My Favorites
+              </Link>
               <button
                 onClick={() => {
                   openModal();
@@ -76,12 +113,18 @@ export default function UserButton({ name, avatar }: UserProps) {
                 <Plus className="size-5 pr-1" /> New Listing
               </button>
             </div>
-            <div className="border-t mt-2 border-slate-800 pt-1">
-              <LogoutButton />
+            <div className="py-2 mt-2 border-t border-slate-800">
+              <LogoutButton
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              >
+                Log out
+              </LogoutButton>
             </div>
           </div>
-        </div>
-      </div>
-    </>
+        </motion.div>
+      )}
+    </div>
   );
 }
