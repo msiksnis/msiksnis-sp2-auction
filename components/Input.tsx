@@ -2,11 +2,13 @@ import { cn } from "@/lib/utils";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   textarea?: false;
+  label?: string;
 };
 
 type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   textarea: true;
   rows: number;
+  label?: string;
 };
 
 type CustomInputProps = InputProps | TextareaProps;
@@ -14,6 +16,7 @@ type CustomInputProps = InputProps | TextareaProps;
 export default function Input({
   className,
   textarea,
+  label,
   ...props
 }: CustomInputProps) {
   const inputClassName = cn(
@@ -21,13 +24,16 @@ export default function Input({
     className
   );
 
-  // Conditionaly render textarea or input based on the textarea prop. By default, it renders an input element.
+  // If 'label' prop is provided, use it as the label content. Otherwise, use the 'placeholder' prop for the label content.
+  const labelContent = label || props.placeholder;
+
+  // Conditionally render textarea or input based on the textarea prop. By default, it renders an input element.
   if (textarea) {
     const textareaProps = props as TextareaProps;
     return (
       <div>
         <label htmlFor={textareaProps.id} className="text-sm font-medium">
-          {textareaProps.placeholder}
+          {labelContent}
         </label>
         <textarea
           {...textareaProps}
@@ -41,7 +47,7 @@ export default function Input({
     return (
       <div>
         <label htmlFor={inputProps.id} className="text-sm font-medium">
-          {inputProps.placeholder}
+          {labelContent}
         </label>
         <input {...inputProps} className={inputClassName} />
       </div>

@@ -18,5 +18,6 @@
     "titleBar.inactiveBackground": "#e5a6f399",
     "titleBar.inactiveForeground": "#15202b99"
   },
-  "peacock.color": "#e5a6f3"
+  "peacock.color": "#e5a6f3",
+  "cSpell.words": ["clsx", "hookform", "lucide", "Noroff", "signup", "zustand"]
 }

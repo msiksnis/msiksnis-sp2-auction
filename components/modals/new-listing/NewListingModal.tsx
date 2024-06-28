@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import "react-day-picker/dist/style.css";
 
-import { Button } from "../Button";
-import ListingForm from "../NewListingForm";
+import { Button } from "../../Button";
+import ListingForm from "./NewListingForm";
 
 type NewListingModalProps = {
   closeModal: () => void;

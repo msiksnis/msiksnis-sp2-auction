@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 import { getTimeLeft } from "@/lib/time-converter";
 import { Listing } from "@/types/ListingTypes";
 import { Button } from "@/components/Button";
 import { Pencil, Trash2 } from "lucide-react";
 import AlertModal from "@/components/modals/AlertModal";
-import toast from "react-hot-toast";
+import EditListingModal from "@/components/modals/edit-listing/EditListingModal";
 
 const filteringOptions = [
   { value: "all", label: "All" },
@@ -25,7 +26,8 @@ interface FilteredDataProps {
 export default function FilteredListings({ data }: FilteredDataProps) {
   const [filteredData, setFilteredData] = useState(data);
   const [selectedLabel, setSelectedLabel] = useState("All");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isEditListingModalOpen, setIsEditListingModalOpen] = useState(false);
   const [currentListingId, setCurrentListingId] = useState<string | null>(null);
 
   const params = useParams();
@@ -68,14 +70,24 @@ export default function FilteredListings({ data }: FilteredDataProps) {
     }
   }, [filterParam, data]);
 
-  const openModal = (listingId: string | null) => {
+  const openAlertModal = (listingId: string | null) => {
     setCurrentListingId(listingId);
-    setIsModalOpen(true);
+    setIsAlertModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeAlertModal = () => {
     setCurrentListingId(null);
-    setIsModalOpen(false);
+    setIsAlertModalOpen(false);
+  };
+
+  const openEditListingModal = (listingId: string | null) => {
+    setCurrentListingId(listingId);
+    setIsEditListingModalOpen(true);
+  };
+
+  const closeEditListingModal = () => {
+    setCurrentListingId(null);
+    setIsEditListingModalOpen(false);
   };
 
   const onDelete = () => {
@@ -95,19 +107,11 @@ export default function FilteredListings({ data }: FilteredDataProps) {
       error: "Something went wrong. Please try again.",
     });
 
-    closeModal();
+    closeAlertModal();
   };
 
   return (
-    <div>
-      {isModalOpen && (
-        <AlertModal
-          isOpen={isModalOpen}
-          closeModal={closeModal}
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={onDelete}
-        />
-      )}
+    <>
       <div className="flex items-center overflow-x-scroll no-scrollbar space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-10 mt-10">
         {filteringOptions.map((option, index) => (
           <Button
@@ -124,7 +128,7 @@ export default function FilteredListings({ data }: FilteredDataProps) {
         ))}
       </div>
       {!filteredData.length || !data.length ? (
-        <div className="mt-10">No '{selectedLabel}' listings.</div>
+        <div className="mt-10">No '{selectedLabel}' listings</div>
       ) : (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
           {filteredData.map(({ id, title, _count, media, endsAt }, index) => (
@@ -151,11 +155,14 @@ export default function FilteredListings({ data }: FilteredDataProps) {
                 </div>
               </Link>
               <div className="absolute bottom-1 right-3">
-                <div className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer">
+                <div
+                  onClick={() => openEditListingModal(id)}
+                  className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
+                >
                   <Pencil className="size-4 text-green-500" />
                 </div>
                 <div
-                  onClick={() => openModal(id)}
+                  onClick={() => openAlertModal(id)}
                   className="size-7 rounded-full hover:bg-slate-100 flex justify-center items-center cursor-pointer"
                 >
                   <Trash2 className="size-4 text-red-500" />
@@ -165,6 +172,22 @@ export default function FilteredListings({ data }: FilteredDataProps) {
           ))}
         </div>
       )}
-    </div>
+      {isAlertModalOpen && (
+        <AlertModal
+          isOpen={isAlertModalOpen}
+          closeModal={closeAlertModal}
+          onClose={() => setIsAlertModalOpen(false)}
+          onConfirm={onDelete}
+        />
+      )}
+      {isEditListingModalOpen && (
+        <EditListingModal
+          isOpen={isEditListingModalOpen}
+          closeModal={closeEditListingModal}
+          onClose={() => setIsEditListingModalOpen(false)}
+          id={currentListingId as string}
+        />
+      )}
+    </>
   );
 }

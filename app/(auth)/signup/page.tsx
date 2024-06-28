@@ -56,10 +56,6 @@ export default function SignUpPage() {
     }
   }, [state.success, state.error]);
 
-  console.log("error:", state.error);
-  console.log("success:", state.success);
-  console.log("message:", state.meassage);
-
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPassword(!showPassword);

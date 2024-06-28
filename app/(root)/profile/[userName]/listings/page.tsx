@@ -1,8 +1,9 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import FilteredListings from "./components/FilteredListings";
 import { Listing } from "@/types/ListingTypes";
+import FilteredListings from "./components/FilteredListings";
+import NewListingButton from "./components/NewListingButton";
 
 export default async function MyListingsPage({
   params,
@@ -36,8 +37,9 @@ export default async function MyListingsPage({
 
   return (
     <div className="mt-14 mb-40 px-6 md:px-10">
-      <div className="">
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl">Listings by {params.userName}</h1>
+        <NewListingButton />
       </div>
       <FilteredListings data={listingsWithImages} />
     </div>

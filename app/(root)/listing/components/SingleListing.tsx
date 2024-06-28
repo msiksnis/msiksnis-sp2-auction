@@ -31,7 +31,7 @@ function SubmitButton() {
   );
 }
 
-const inititialState = {
+const initialState = {
   amount: 0,
   message: null,
 };
@@ -56,7 +56,7 @@ export default function SingleListing({
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [state, formAction] = useFormState(bidAction, inititialState);
+  const [state, formAction] = useFormState(bidAction, initialState);
 
   const { id, title, description, media, endsAt, bids } = data;
 

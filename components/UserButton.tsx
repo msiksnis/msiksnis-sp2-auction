@@ -1,17 +1,16 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
 import { UserProps } from "./Navbar";
 import LogoutButton from "./LogoutButton";
-import NewListingModal from "./modals/NewListingModal";
+import NewListingModal from "./modals/new-listing/NewListingModal";
 
 export default function UserButton({ name, avatar }: UserProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
 
@@ -22,7 +21,7 @@ export default function UserButton({ name, avatar }: UserProps) {
     <>
       {isModalOpen && <NewListingModal closeModal={closeModal} />}
       <div className="relative">
-        <div ref={menuRef} onClick={toggleMenu}>
+        <div onClick={toggleMenu}>
           <img
             src={avatar}
             alt="avatar"
@@ -37,7 +36,7 @@ export default function UserButton({ name, avatar }: UserProps) {
           }
         >
           <div className="whitespace-nowrap font-medium rounded-md py-2 px-4">
-            <div className="text-cente py-2 max-w-32 truncate">{name}</div>
+            <div className="py-2 max-w-32 truncate">{name}</div>
             <div className="flex flex-col space-y-1 border-t border-slate-800">
               <Link
                 href={`/profile/${name}`}

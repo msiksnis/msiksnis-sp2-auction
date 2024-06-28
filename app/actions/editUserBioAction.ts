@@ -49,7 +49,7 @@ export default async function editUserBioAction(
   revalidatePath("/profile/");
 
   if (data) {
-    return { success: true, message: "Successbully updated!" };
+    return { success: true, message: "Successfully updated!" };
   } else {
     return { error: "Failed to update." };
   }
