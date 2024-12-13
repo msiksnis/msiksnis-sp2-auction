@@ -82,13 +82,7 @@ export default function NavbarMenu({ name, avatar }: UserProps) {
               </button>
             </div>
             <div className="py-2 mt-2 border-t border-slate-800">
-              <LogoutButton
-                onClick={() => {
-                  setIsOpen(false);
-                }}
-              >
-                Log out
-              </LogoutButton>
+              <LogoutButton>Log out</LogoutButton>
             </div>
           </div>
         </motion.div>

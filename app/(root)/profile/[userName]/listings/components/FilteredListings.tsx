@@ -56,12 +56,12 @@ export default function FilteredListings({
         break;
       case "active":
         setFilteredData(
-          data.filter((item) => new Date(item.endsAt) > new Date())
+          data?.filter((item) => new Date(item.endsAt) > new Date())
         );
         break;
       case "ending_soon":
         setFilteredData(
-          data.filter(
+          data?.filter(
             (item) =>
               new Date(item.endsAt).getTime() > new Date().getTime() &&
               new Date(item.endsAt).getTime() - new Date().getTime() <=
@@ -131,7 +131,7 @@ export default function FilteredListings({
           </Button>
         ))}
       </div>
-      {!filteredData.length || !data.length ? (
+      {!filteredData?.length || !data.length ? (
         <div className="mt-10">No '{selectedLabel}' listings</div>
       ) : (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">

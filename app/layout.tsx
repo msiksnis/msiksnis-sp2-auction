@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${montserrat.className} ${bangers.variable} flex flex-col min-h-screen`}
+        className={`${montserrat.className} ${bangers.variable} flex flex-col mx-auto min-h-screen`}
       >
         <Toaster position="top-center" reverseOrder={false} />
         <Navbar />

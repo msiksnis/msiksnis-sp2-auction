@@ -44,19 +44,16 @@ export default async function MyListingsPage({
   const { data } = usersListing;
 
   // Filtering out listings without images
-  const listingsWithImages: Listing[] = data.filter(
-    (data: Listing) => data.media.length > 0
-  );
+  // const listingsWithImages: Listing[] = data.filter(
+  //   (data: Listing) => data.media.length > 0
+  // );
 
   return (
     <div className="mt-14 mb-40 px-6 md:px-10">
       <div className="">
         <h1 className="text-2xl">Listings by {params.userName}</h1>
       </div>
-      <FilteredListings
-        data={listingsWithImages}
-        loggedInUser={loggedInUser ?? ""}
-      />
+      <FilteredListings data={data} loggedInUser={loggedInUser ?? ""} />
     </div>
   );
 }
