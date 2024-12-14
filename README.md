@@ -1,3 +1,5 @@
+![Auction House Landing Section](/public/assets//homepage.png)
+
 # Auction House
 
 **(This is a school project built by Martins Siksnis)**
